@@ -1,3 +1,5 @@
+import OrderedCollections
+
 public struct DependencyGraph<V> where V: Hashable, V: Identifiable {
     typealias Edge = (V, V)
     
@@ -14,7 +16,7 @@ public struct DependencyGraph<V> where V: Hashable, V: Identifiable {
      - Note: Informally speaking, `v` is adjacent to `w`, or a neighbour of `w`, and
      `w` is targeted by `v`'s arrow.
      */
-    public internal(set) var incoming_edges: [V.ID: Set<V>] = [:]
+    public internal(set) var incoming_edges: [V.ID: OrderedSet<V>] = [:]
     
     /**
      Outgoing edges of a vertex are directed edges that the vertex is the origin.
@@ -25,7 +27,7 @@ public struct DependencyGraph<V> where V: Hashable, V: Identifiable {
      - Note: Informally speaking, `v` is adjacent to `w`, or a neighbour of `w`, and
      its arrow points to `w`.
      */
-    public internal(set) var outgoing_edges: [V.ID: Set<V>] = [:]
+    public internal(set) var outgoing_edges: [V.ID: OrderedSet<V>] = [:]
     
     func contains(vertex: V) -> Bool {
         return contains(vertexWith: {v in v.id == vertex.id})
