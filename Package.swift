@@ -1,16 +1,16 @@
-// swift-tools-version: 6.0
+// swift-tools-version: 5.9
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 
 import PackageDescription
 
 let package = Package(
-    name: "swift-dependency-graphs",
+    name: "DependencyGraphs",
     platforms: [.macOS(.v10_15)],
     products: [
         // Products define the executables and libraries a package produces, making them visible to other packages.
         .library(
-            name: "swift-dependency-graphs",
-            targets: ["swift-dependency-graphs"]),
+            name: "DependencyGraphs",
+            targets: ["DependencyGraphs"]),
     ],
     dependencies: [
         .package(url: "https://github.com/Quick/Quick.git", from: "7.0.0"),
@@ -24,14 +24,14 @@ let package = Package(
         // Targets are the basic building blocks of a package, defining a module or a test suite.
         // Targets can depend on other targets in this package and products from dependencies.
         .target(
-            name: "swift-dependency-graphs",
+            name: "DependencyGraphs",
             dependencies: [
                 .product(name: "Collections", package: "swift-collections")
             ]
         ),
         .testTarget(
-            name: "swift-dependency-graphsTests",
-            dependencies: ["swift-dependency-graphs", "Quick", "Nimble"]
+            name: "DependencyGraphsTests",
+            dependencies: ["DependencyGraphs", "Quick", "Nimble"]
         ),
     ]
 )
