@@ -39,4 +39,39 @@ public struct DependencyGraph<V> where V: Hashable, V: Identifiable {
     func contains(vertexWith predicate: (V) -> Bool) -> Bool {
         return vertices.contains(where: {_, vertex in predicate(vertex)})
     }
+    
+    /**
+     Traverses the vertices in the dependency graph and reduces the visited vertices.
+     */
+    public func dfs<T>(
+        startingFrom vertex: V,
+        in direction: TraverseDirection,
+        withVisited visited: Set<V>,
+        reduceWith reducer: (_ accumulator: T, _ currentVertex: V) -> T,
+        withInitialValue accumulator: T
+    ) -> T {
+        guard let neighbours = direction == TraverseDirection.forwards
+                ? outgoing_edges[vertex.id]
+                : incoming_edges[vertex.id]
+        else {
+            return accumulator
+        }
+        
+        if visited.contains(vertex) {
+            return accumulator
+        }
+        
+        return neighbours.reduce(reducer(accumulator, vertex)) { current_accumulator, neighbour in
+            var visited = visited
+            visited.insert(vertex)
+            
+            return dfs(
+                startingFrom: neighbour,
+                in: direction,
+                withVisited: visited,
+                reduceWith: reducer,
+                withInitialValue: current_accumulator
+            )
+        }
+    }
 }
