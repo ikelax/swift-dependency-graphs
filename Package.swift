@@ -9,8 +9,8 @@ let package = Package(
     products: [
         // Products define the executables and libraries a package produces, making them visible to other packages.
         .library(
-            name: "swift-dependency-graphs",
-            targets: ["swift-dependency-graphs"]),
+            name: "DependencyGraphs",
+            targets: ["DependencyGraphs"]),
     ],
     dependencies: [
         .package(url: "https://github.com/Quick/Quick.git", from: "7.0.0"),
@@ -24,14 +24,14 @@ let package = Package(
         // Targets are the basic building blocks of a package, defining a module or a test suite.
         // Targets can depend on other targets in this package and products from dependencies.
         .target(
-            name: "swift-dependency-graphs",
+            name: "DependencyGraphs",
             dependencies: [
                 .product(name: "Collections", package: "swift-collections")
             ]
         ),
         .testTarget(
-            name: "swift-dependency-graphsTests",
-            dependencies: ["swift-dependency-graphs", "Quick", "Nimble"]
+            name: "DependencyGraphsTests",
+            dependencies: ["DependencyGraphs", "Quick", "Nimble"]
         ),
     ]
 )

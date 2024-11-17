@@ -1,4 +1,4 @@
-@testable import swift_dependency_graphs
+@testable import DependencyGraphs
 
 typealias TestGraph = DependencyGraph<Vertex>
 
@@ -7,10 +7,10 @@ extension TestGraph {
      Returns an empty graph.
      */
     static var empty: TestGraph { DependencyGraph() }
-    
+
     /**
      The graph C4 looks like this: 1 --> 2 --> 3 --> 4 --> 1.
-     
+
      - Returns: The graph C4.
      - Note: The directed cyclic graph on 4 vertices is usually denoted by $C^4$ or $C\_4$.
      */
@@ -34,7 +34,7 @@ extension TestGraph {
             vertex_3.id: [vertex_4],
             vertex_4.id: [vertex_1],
         ]
-            
+
         return c4
     }
 }
