@@ -22,13 +22,13 @@ extension TestGraph {
             vertex_3.id: vertex_3,
             vertex_4.id: vertex_4,
         ]
-        c4.incoming_edges = [
+        c4.incomingEdges = [
             vertex_1.id: [vertex_4],
             vertex_2.id: [vertex_1],
             vertex_3.id: [vertex_2],
             vertex_4.id: [vertex_3],
         ]
-        c4.outgoing_edges = [
+        c4.outgoingEdges = [
             vertex_1.id: [vertex_2],
             vertex_2.id: [vertex_3],
             vertex_3.id: [vertex_4],
@@ -50,14 +50,14 @@ extension TestGraph {
             vertex_4.id: vertex_4,
             vertex_5.id: vertex_5,
         ]
-        p5.incoming_edges = [
+        p5.incomingEdges = [
             vertex_1.id: [],
             vertex_2.id: [vertex_1],
             vertex_3.id: [vertex_2],
             vertex_4.id: [vertex_3],
             vertex_5.id: [vertex_4],
         ]
-        p5.outgoing_edges = [
+        p5.outgoingEdges = [
             vertex_1.id: [vertex_2],
             vertex_2.id: [vertex_3],
             vertex_3.id: [vertex_4],
@@ -79,13 +79,13 @@ extension TestGraph {
             vertex_3.id: vertex_3,
             vertex_4.id: vertex_4,
         ]
-        p4WithInvertedEdge.incoming_edges = [
+        p4WithInvertedEdge.incomingEdges = [
             vertex_1.id: [],
             vertex_2.id: [vertex_1, vertex_3],
             vertex_3.id: [],
             vertex_4.id: [vertex_3],
         ]
-        p4WithInvertedEdge.outgoing_edges = [
+        p4WithInvertedEdge.outgoingEdges = [
             vertex_1.id: [vertex_2],
             vertex_2.id: [],
             vertex_3.id: [vertex_2, vertex_4],
@@ -120,7 +120,7 @@ extension TestGraph {
             vertex_7.id: vertex_7,
         ]
         
-        binaryTree.incoming_edges = [
+        binaryTree.incomingEdges = [
             vertex_1.id: [],
             vertex_2.id: [vertex_1],
             vertex_3.id: [vertex_1],
@@ -130,7 +130,7 @@ extension TestGraph {
             vertex_7.id: [vertex_3],
         ]
         
-        binaryTree.outgoing_edges = [
+        binaryTree.outgoingEdges = [
             vertex_1.id: [vertex_2, vertex_3],
             vertex_2.id: [vertex_4, vertex_5],
             vertex_3.id: [vertex_6, vertex_7],
@@ -167,7 +167,7 @@ extension TestGraph {
             vertex_6.id: vertex_6,
         ]
         
-        twoDisconnectedComponents.incoming_edges = [
+        twoDisconnectedComponents.incomingEdges = [
             vertex_1.id: [],
             vertex_2.id: [vertex_1],
             vertex_3.id: [],
@@ -176,7 +176,7 @@ extension TestGraph {
             vertex_6.id: [vertex_4],
         ]
         
-        twoDisconnectedComponents.outgoing_edges = [
+        twoDisconnectedComponents.outgoingEdges = [
             vertex_1.id: [vertex_2],
             vertex_2.id: [],
             vertex_3.id: [vertex_4, vertex_5],
