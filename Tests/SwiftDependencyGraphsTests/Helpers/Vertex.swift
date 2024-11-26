@@ -13,6 +13,10 @@ let vertex_2 = Vertex(id: 2)
 let vertex_3 = Vertex(id: 3)
 let vertex_4 = Vertex(id: 4)
 let vertex_5 = Vertex(id: 5)
+let vertex_6 = Vertex(id: 6)
+let vertex_7 = Vertex(id: 7)
+
+let emptyVertexList: [Vertex] = []
 
 extension Vertex {
     /// Convenience to also use `id` to set `label`.
