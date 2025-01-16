@@ -38,10 +38,8 @@ extension TestGraph {
         return c4
     }
     
-    /**
-     Returns the graph P5 that looks like this: 1 --> 2 --> 3 --> 4 --> 5.
-     */
-    static func path5() -> TestGraph {
+    /// Returns the graph P5 that looks like this: 1 --> 2 --> 3 --> 4 --> 5. Such a graph is called a path (on 5 vertices).
+    static func path() -> TestGraph {
         var p5 = TestGraph()
         p5.vertices = [
             vertex_1.id: vertex_1,
