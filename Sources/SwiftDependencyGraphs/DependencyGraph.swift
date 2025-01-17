@@ -1,6 +1,6 @@
 import OrderedCollections
 
-public struct DependencyGraph<V> where V: Hashable, V: Identifiable {
+public struct DependencyGraph<V>: Sequence where V: Hashable, V: Identifiable {
     typealias Edge = (V, V)
     
     /// The vertices of the dependency graph.
