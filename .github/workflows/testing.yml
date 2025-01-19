@@ -24,6 +24,6 @@ jobs:
           xcode-select-version: 16.1
       - if: ${{ matrix.os == 'ubuntu-24.04' }}
         name: Install xcbeautify
-        run: brew install xcbeautify
+        run: eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)" && brew install xcbeautify
       - name: Test
         run: set -o pipefail && swift test | xcbeautify --renderer github-actions
