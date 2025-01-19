@@ -6,20 +6,13 @@ struct Vertex: Identifiable, Hashable {
   let label: String
 }
 
-// swift-format-ignore: AlwaysUseLowerCamelCase
-let vertex_1 = Vertex(id: 1)
-// swift-format-ignore: AlwaysUseLowerCamelCase
-let vertex_2 = Vertex(id: 2)
-// swift-format-ignore: AlwaysUseLowerCamelCase
-let vertex_3 = Vertex(id: 3)
-// swift-format-ignore: AlwaysUseLowerCamelCase
-let vertex_4 = Vertex(id: 4)
-// swift-format-ignore: AlwaysUseLowerCamelCase
-let vertex_5 = Vertex(id: 5)
-// swift-format-ignore: AlwaysUseLowerCamelCase
-let vertex_6 = Vertex(id: 6)
-// swift-format-ignore: AlwaysUseLowerCamelCase
-let vertex_7 = Vertex(id: 7)
+let vertex1 = Vertex(id: 1)
+let vertex2 = Vertex(id: 2)
+let vertex3 = Vertex(id: 3)
+let vertex4 = Vertex(id: 4)
+let vertex5 = Vertex(id: 5)
+let vertex6 = Vertex(id: 6)
+let vertex7 = Vertex(id: 7)
 
 let emptyVertexList: [Vertex] = []
 

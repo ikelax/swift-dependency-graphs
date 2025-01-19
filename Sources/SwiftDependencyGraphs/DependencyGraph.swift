@@ -27,7 +27,7 @@ public struct DependencyGraph<V> where V: Hashable, V: Identifiable {
   public internal(set) var outgoingEdges: [V.ID: OrderedSet<V>] = [:]
 
   func contains(vertex: V) -> Bool {
-    return contains(vertexWith: { v in v.id == vertex.id })
+    return contains(vertexWith: { vertexInGraph in vertexInGraph.id == vertex.id })
   }
 
   /// Returns `true` iff at least one vertex satisfies the `predicate`.
@@ -38,10 +38,12 @@ public struct DependencyGraph<V> where V: Hashable, V: Identifiable {
   /// Traverses the vertices in the dependency graph and reduces the visited vertices.
   /// - Parameters:
   ///   - vertex: The vertex the depth-first search starts from
-  ///   - direction: The direction of the depth-first search. It is either `.forwards` and therefore in the direction of the arrows of the edges or `.backwards`.
+  ///   - direction: The direction of the depth-first search. It is either `.forwards`
+  ///   and therefore in the direction of the arrows of the edges or `.backwards`.
   ///   - reducer: Reduces the visited vertices.
   ///   - accumulator: The accumulator for the reducer.
-  /// - Returns: The accumulated value. If the vertex does not exist in the graph or does not have neighbours, it just returns the `accumulator`.
+  /// - Returns: The accumulated value. If the vertex does not exist in the graph or does not have neighbours,
+  /// it just returns the `accumulator`.
   public func depthFirstSearch<T>(
     startingFrom vertex: V,
     in direction: TraverseDirection,
@@ -60,11 +62,13 @@ public struct DependencyGraph<V> where V: Hashable, V: Identifiable {
   /// Traverses the vertices in the dependency graph and reduces the visited vertices.
   /// - Parameters:
   ///   - vertex: The vertex the depth-first search starts from
-  ///   - direction: The direction of the depth-first search. It is either `.forwards` and therefore in the direction of the arrows of the edges or `.backwards`.
+  ///   - direction: The direction of the depth-first search. It is either `.forwards` and
+  ///   therefore in the direction of the arrows of the edges or `.backwards`.
   ///   - visited: Tracks vertices that were already visited by the depth-first search.
   ///   - reducer: Reduces the visited vertices.
   ///   - accumulator: The accumulator for the reducer.
-  /// - Returns: The accumulated value. If the vertex does not exist in the graph or does not have neighbours, it just returns the `accumulator`.
+  /// - Returns: The accumulated value. If the vertex does not exist in the graph or does not have neighbours,
+  /// it just returns the `accumulator`.
   internal func depthFirstSearchImpl<T>(
     startingFrom vertex: V,
     in direction: TraverseDirection,
