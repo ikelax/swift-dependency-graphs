@@ -9,21 +9,21 @@ on:
       - main
 
 jobs:
-  test:
-    strategy:
-      matrix:
-        os: [macOS-14, ubuntu-24.04]
-        include:
-          - os: macOS-14
-            select-xcode-version: true
-    name: Test
-    runs-on: ${{ matrix.os }}
+  test-macOS-14:
+    name: Test on macOS 14
+    runs-on: macOS-14
     steps:
       - uses: actions/checkout@v4
-      - if: ${{ matrix.select-xcode-version }}
-        name: Xcode Select Version
+      - name: Xcode Select Version
         uses: mobiledevops/xcode-select-version-action@v1
         with:
           xcode-select-version: 16.1
       - name: Test
         run: set -o pipefail && swift test | xcbeautify --renderer github-actions
+  test-ubuntu-24.04:
+    name: Test on Ubuntu 24.04
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Test
+        run: swift test
