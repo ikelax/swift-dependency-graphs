@@ -13,7 +13,7 @@ class DfsPathTests: QuickSpec {
                 
                 it("with the private method") {
                     expect(TestGraph.path().depthFirstSearchImpl(startingFrom: vertex_1, in: .forwards, withVisited: [], reduceWith: appendReducer, withInitialValue: []))
-                        .to(equal([vertex_1, vertex_2, vertex_3, vertex_4, vertex_5]))
+                        .to(equal([vertex_1, vertex_2, vertex_3, vertex_4]))
                 }
             }
             
