@@ -34,7 +34,7 @@ public struct DependencyGraph<V> where V: Hashable, V: Identifiable {
     }
     
     /**
-     Returns `true` iff at least one vertex satifies the `predicate`.
+     Returns `true` iff at least one vertex satisfies the `predicate`.
      */
     func contains(vertexWith predicate: (V) -> Bool) -> Bool {
         return vertices.contains(where: {_, vertex in predicate(vertex)})
