@@ -1,11 +1,9 @@
-/**
- In comments or descriptions, a vertex with `id` `n` is referred to as `v${n}`.
- Just using the `id` or the `label` may be confusing.
- */
+/// In comments or descriptions, a vertex with `id` `n` is referred to as `v${n}`.
+/// Just using the `id` or the `label` may be confusing.
 struct Vertex: Identifiable, Hashable {
-    let id: Int
-    /// `label` is used for testing how the library handles properties.
-    let label: String
+  let id: Int
+  /// `label` is used for testing how the library handles properties.
+  let label: String
 }
 
 let vertex_1 = Vertex(id: 1)
@@ -19,8 +17,8 @@ let vertex_7 = Vertex(id: 7)
 let emptyVertexList: [Vertex] = []
 
 extension Vertex {
-    /// Convenience to also use `id` to set `label`.
-    init(id: Int) {
-        self.init(id: id, label: "\(id)")
-    }
+  /// Convenience to also use `id` to set `label`.
+  init(id: Int) {
+    self.init(id: id, label: "\(id)")
+  }
 }
