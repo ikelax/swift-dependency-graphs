@@ -30,4 +30,4 @@ jobs:
         with:
           xcode-select-version: 16.1
       - name: Format and lint
-        run: swift package plugin --allow-writing-to-package-directory swiftlint lint --reporter github-actions-logging
+        run: swift package plugin --allow-writing-to-package-directory swiftlint lint --reporter github-actions-logging 2> /dev/null
