@@ -7,7 +7,9 @@ class ContainsVertexWithTests: QuickSpec {
   override class func spec() {
 
     // C4 has only vertices with the ids 1, 2, 3 and 4.
+    // swift-format-ignore: AlwaysUseLowerCamelCase
     let vertex_1_prime_with_same_label = Vertex(id: 5, label: "1")
+    // swift-format-ignore: AlwaysUseLowerCamelCase
     let vertex_1_prime_with_same_id = Vertex(id: vertex_1.id, label: "not 1")
 
     describe("C4 with vertices v1, v2, v3 and v4") {
