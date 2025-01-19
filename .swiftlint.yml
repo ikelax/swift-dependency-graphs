@@ -7,4 +7,4 @@ included:
   - Package.swift
 
 strict: true
-reporter: summary
+reporter: emoji
