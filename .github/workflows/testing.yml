@@ -9,21 +9,21 @@ on:
       - main
 
 jobs:
-  test-macOS-14:
-    name: Test on macOS 14
-    runs-on: macOS-14
+  test:
+    strategy:
+      matrix:
+        os: [macOS-14, ubuntu-24.04]
+    name: Test
+    runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4
-      - name: Xcode Select Version
+      - if: ${{ matrix.os == 'macOS-14' }}
+        name: Xcode Select Version
         uses: mobiledevops/xcode-select-version-action@v1
         with:
           xcode-select-version: 16.1
+      - if: ${{ matrix.os == 'ubuntu-24.04' }}
+        name: Install xcbeautify
+        run: brew install xcbeautify
       - name: Test
         run: set -o pipefail && swift test | xcbeautify --renderer github-actions
-  test-ubuntu-24.04:
-    name: Test on Ubuntu 24.04
-    runs-on: ubuntu-24.04
-    steps:
-      - uses: actions/checkout@v4
-      - name: Test
-        run: swift test
