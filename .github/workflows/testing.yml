@@ -10,11 +10,18 @@ on:
 
 jobs:
   test:
+    strategy:
+      matrix:
+        os: [macOS-14, ubuntu-24.04]
+        include:
+          - os: macOS-14
+            select-xcode-version: true
     name: Test
-    runs-on: macOS-14
+    runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4
-      - name: Xcode Select Version
+      - if: ${{ matrix.select-xcode-version }}
+        name: Xcode Select Version
         uses: mobiledevops/xcode-select-version-action@v1
         with:
           xcode-select-version: 16.1
