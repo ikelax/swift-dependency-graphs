@@ -1,6 +1,6 @@
 import Quick
 import Nimble
-@testable import swift_dependency_graphs
+@testable import DependencyGraphs
 
 class DfsPathTests: QuickSpec {
     override class func spec() {
