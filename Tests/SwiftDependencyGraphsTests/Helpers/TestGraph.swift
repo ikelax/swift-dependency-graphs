@@ -3,17 +3,13 @@
 typealias TestGraph = DependencyGraph<Vertex>
 
 extension TestGraph {
-  /**
-     Returns an empty graph.
-     */
+  /// Returns an empty graph.
   static var empty: TestGraph { DependencyGraph() }
 
-  /**
-     The graph C4 looks like this: 1 --> 2 --> 3 --> 4 --> 1.
-
-     - Returns: The graph C4.
-     - Note: The directed cyclic graph on 4 vertices is usually denoted by $C^4$ or $C\_4$.
-     */
+  /// The graph C4 looks like this: 1 --> 2 --> 3 --> 4 --> 1.
+  ///
+  /// - Returns: The graph C4.
+  /// - Note: The directed cyclic graph on 4 vertices is usually denoted by $C^4$ or $C\_4$.
   static func directedC4() -> TestGraph {
     var c4 = TestGraph()
     c4.vertices = [
@@ -66,9 +62,7 @@ extension TestGraph {
     return p5
   }
 
-  /**
-     Returns the graph which looks like this: 1 --> 2 <-- 3 --> 4 .
-     */
+  /// Returns the graph which looks like this: 1 --> 2 <-- 3 --> 4 .
   static func path4WithInvertedEdge() -> TestGraph {
     var p4WithInvertedEdge = TestGraph()
     p4WithInvertedEdge.vertices = [
@@ -93,18 +87,16 @@ extension TestGraph {
     return p4WithInvertedEdge
   }
 
-  /**
-     Returns the sketched binary tree.
-
-     The edges are directed from top to bottom.
-     ```
-         1
-        / \
-       2   3
-      / \ / \
-     4  5 6  7
-     ```
-     */
+  /// Returns the sketched binary tree.
+  ///
+  /// The edges are directed from top to bottom.
+  /// ```
+  ///     1
+  ///    / \
+  ///   2   3
+  ///  / \ / \
+  /// 4  5 6  7
+  /// ```
   static func binaryTree() -> TestGraph {
     var binaryTree = TestGraph()
 
@@ -140,20 +132,18 @@ extension TestGraph {
     return binaryTree
   }
 
-  /**
-     Returns a graph with two disconnected components.
-
-     The graph looks like this. There is no path from the subgraph 1 --> 2
-     to the rest of the graph.
-
-     1 --> 2
-
-     3 --> 4 --> 5
-
-     3 --> 5
-
-     4 --> 6
-     */
+  /// Returns a graph with two disconnected components.
+  ///
+  /// The graph looks like this. There is no path from the subgraph 1 --> 2
+  /// to the rest of the graph.
+  ///
+  /// 1 --> 2
+  ///
+  /// 3 --> 4 --> 5
+  ///
+  /// 3 --> 5
+  ///
+  /// 4 --> 6
   static func twoDisconnectedComponents() -> TestGraph {
     var twoDisconnectedComponents = TestGraph()
     twoDisconnectedComponents.vertices = [
@@ -186,9 +176,7 @@ extension TestGraph {
     return twoDisconnectedComponents
   }
 
-  /**
-     Returns the graph on 3 vertices without any edges.
-     */
+  /// Returns the graph on 3 vertices without any edges.
   static func complementOfK3() -> TestGraph {
     var complementOfK3 = TestGraph()
     complementOfK3.vertices = [
