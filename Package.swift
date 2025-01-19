@@ -18,7 +18,8 @@ let package = Package(
         .package(
               url: "https://github.com/apple/swift-collections.git",
               .upToNextMinor(from: "1.1.0")
-            )
+            ),
+            .package(url: "https://github.com/SimplyDanny/SwiftLintPlugins", exact: "0.58.2")
     ],
     targets: [
         // Targets are the basic building blocks of a package, defining a module or a test suite.

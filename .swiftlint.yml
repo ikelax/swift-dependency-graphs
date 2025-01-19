@@ -1,0 +1,7 @@
+included:
+  - Sources
+  - Tests
+  - Package.swift
+
+strict: true
+reporter: summary

@@ -1,0 +1,25 @@
+name: Formatting and Linting
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  swift-format:
+    name: swift-format
+    runs-on: macOS-14
+    steps:
+      - uses: actions/checkout@v4
+      - name: Format and lint
+        run: swift format lint -r -p -s .
+  SwiftLint:
+    name: SwiftLint
+    runs-on: macOS-14
+    steps:
+      - uses: actions/checkout@v4
+      - name: Format and lint
+        run: swift package plugin --allow-writing-to-package-directory swiftlint lint --reporter github-actions-logging 2> /dev/null
