@@ -10,6 +10,7 @@ on:
 
 jobs:
   test:
+    name: Test
     runs-on: macOS-14
     steps:
       - uses: actions/checkout@v4
