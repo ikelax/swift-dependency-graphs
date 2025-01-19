@@ -26,7 +26,7 @@ jobs:
         name: Install xcbeautify
         run: |
           eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-          echo "/home/linuxbrew" >> "$GITHUB_PATH"
+          echo "/home/linuxbrew/.linuxbrew/Cellar/xcbeautify" >> "$GITHUB_PATH"
           brew install xcbeautify
       - name: Test
         run: set -o pipefail && swift test | xcbeautify --renderer github-actions
