@@ -37,7 +37,6 @@ jobs:
       - uses: actions/checkout@v4
       - name: Test
         run: |
-          Enable-ExperimentalFeature PSNativeCommandErrorActionPreference
           Set-StrictMode -Version Latest
           $ErrorActionPreference = "Stop"
           $PSNativeCommandUseErrorActionPreference = $true
