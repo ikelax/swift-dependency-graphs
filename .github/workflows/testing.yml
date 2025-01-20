@@ -30,3 +30,10 @@ jobs:
           eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
           brew install xcbeautify
           set -o pipefail && swift test | xcbeautify --renderer github-actions
+  test-windows:
+    name: Test on Windows Server 2022
+    runs-on: windows-2022
+    steps:
+      - uses: actions/checkout@v4
+      - name: Test
+        run: set -o pipefail && swift test
