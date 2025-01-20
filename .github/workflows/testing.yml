@@ -34,6 +34,10 @@ jobs:
     name: Test on Windows Server 2022
     runs-on: windows-2022
     steps:
+      - uses: compnerd/gha-setup-swift@main
+        with:
+          branch: swift-6.0-release
+          tag: 6.0-RELEASE
       - uses: actions/checkout@v4
       - name: Test
         run: |
