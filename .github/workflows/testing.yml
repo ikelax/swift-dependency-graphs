@@ -36,4 +36,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Test
-        run: set -o pipefail && swift test
+        run: |
+          Enable-ExperimentalFeature PSNativeCommandErrorActionPreference
+          Set-StrictMode -Version Latest
+          $ErrorActionPreference = "Stop"
+          $PSNativeCommandUseErrorActionPreference = $true
+          swift test
