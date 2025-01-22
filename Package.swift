@@ -14,7 +14,7 @@ let package = Package(
   ],
   dependencies: [
     .package(url: "https://github.com/Quick/Quick.git", from: "7.0.0"),
-    .package(url: "https://github.com/Quick/Nimble.git", from: "12.0.0"),
+    .package(url: "https://github.com/Quick/Nimble.git", from: "13.7.1"),
     .package(
       url: "https://github.com/apple/swift-collections.git",
       .upToNextMinor(from: "1.1.0")
