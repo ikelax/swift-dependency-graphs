@@ -9,6 +9,8 @@ public struct DepthFirstSearchIterator<V>: IteratorProtocol where V: Hashable, V
     currentVertex = graph.vertices.first
   }
 
+  /// Traverses over the graph with depth-first search in direction of the edges.
+  /// - Returns: The next vertex in the graph or nil if there is none
   public mutating func next() -> V? {
     // If the graph is empty, there are no vertices to iterate.
     // So, we return nil.
@@ -20,7 +22,7 @@ public struct DepthFirstSearchIterator<V>: IteratorProtocol where V: Hashable, V
     // If there is no next vertex, we look for next unvisited vertex.
     // If all vertices were already visited, we are done with iterating.
     let nextVertex =
-      nextVertexInDephtFirstSearch(startingFrom: currentVertex, withVisited: visited)
+      nextVertexInDepthFirstSearch(startingFrom: currentVertex, withVisited: visited)
       ?? graph.vertices.first(where: { !visited.contains($0) })
 
     if let nextVertex {
@@ -37,7 +39,7 @@ public struct DepthFirstSearchIterator<V>: IteratorProtocol where V: Hashable, V
   ///   - vertex: The vertex from which the depth-first search starts
   ///   - visited: The vertices that were already visited
   /// - Returns: The next vertex or nil if there is none
-  func nextVertexInDephtFirstSearch(
+  func nextVertexInDepthFirstSearch(
     startingFrom vertex: V,
     withVisited visited: Set<V>
   ) -> V? {

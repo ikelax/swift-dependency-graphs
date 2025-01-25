@@ -117,6 +117,8 @@ public struct DependencyGraph<V>: Sequence where V: Hashable, V: Identifiable {
     return edges[vertex.id]
   }
 
+  /// This is required for the Sequence Protocol conformance.
+  /// - Returns: The iterator
   public func makeIterator() -> DepthFirstSearchIterator<V> {
     return DepthFirstSearchIterator<V>(self)
   }
