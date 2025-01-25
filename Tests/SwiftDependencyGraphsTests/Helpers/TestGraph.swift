@@ -13,10 +13,10 @@ extension TestGraph {
   static func directedC4() -> TestGraph {
     var circle4 = TestGraph()
     circle4.vertices = [
-      vertex1.id: vertex1,
-      vertex2.id: vertex2,
-      vertex3.id: vertex3,
-      vertex4.id: vertex4,
+      vertex1,
+      vertex2,
+      vertex3,
+      vertex4,
     ]
     circle4.incomingEdges = [
       vertex1.id: [vertex4],
@@ -39,11 +39,11 @@ extension TestGraph {
   static func path() -> TestGraph {
     var path5 = TestGraph()
     path5.vertices = [
-      vertex1.id: vertex1,
-      vertex2.id: vertex2,
-      vertex3.id: vertex3,
-      vertex4.id: vertex4,
-      vertex5.id: vertex5,
+      vertex1,
+      vertex2,
+      vertex3,
+      vertex4,
+      vertex5,
     ]
     path5.incomingEdges = [
       vertex1.id: [],
@@ -67,10 +67,10 @@ extension TestGraph {
   static func path4WithInvertedEdge() -> TestGraph {
     var p4WithInvertedEdge = TestGraph()
     p4WithInvertedEdge.vertices = [
-      vertex1.id: vertex1,
-      vertex2.id: vertex2,
-      vertex3.id: vertex3,
-      vertex4.id: vertex4,
+      vertex1,
+      vertex2,
+      vertex3,
+      vertex4,
     ]
     p4WithInvertedEdge.incomingEdges = [
       vertex1.id: [],
@@ -102,13 +102,13 @@ extension TestGraph {
     var binaryTree = TestGraph()
 
     binaryTree.vertices = [
-      vertex1.id: vertex1,
-      vertex2.id: vertex2,
-      vertex3.id: vertex3,
-      vertex4.id: vertex4,
-      vertex5.id: vertex5,
-      vertex6.id: vertex6,
-      vertex7.id: vertex7,
+      vertex1,
+      vertex2,
+      vertex3,
+      vertex4,
+      vertex5,
+      vertex6,
+      vertex7,
     ]
 
     binaryTree.incomingEdges = [
@@ -148,12 +148,12 @@ extension TestGraph {
   static func twoDisconnectedComponents() -> TestGraph {
     var twoDisconnectedComponents = TestGraph()
     twoDisconnectedComponents.vertices = [
-      vertex1.id: vertex1,
-      vertex2.id: vertex2,
-      vertex3.id: vertex3,
-      vertex4.id: vertex4,
-      vertex5.id: vertex5,
-      vertex6.id: vertex6,
+      vertex1,
+      vertex2,
+      vertex3,
+      vertex4,
+      vertex5,
+      vertex6,
     ]
 
     twoDisconnectedComponents.incomingEdges = [
@@ -181,9 +181,9 @@ extension TestGraph {
   static func complementOfK3() -> TestGraph {
     var complementOfK3 = TestGraph()
     complementOfK3.vertices = [
-      vertex1.id: vertex1,
-      vertex2.id: vertex2,
-      vertex3.id: vertex3,
+      vertex1,
+      vertex2,
+      vertex3,
     ]
 
     return complementOfK3
