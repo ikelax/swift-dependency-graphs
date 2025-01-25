@@ -138,13 +138,13 @@ extension TestGraph {
   /// The graph looks like this. There is no path from the subgraph 1 --> 2
   /// to the rest of the graph.
   ///
-  /// 1 --> 2
+  /// 1 --> 6
   ///
   /// 3 --> 4 --> 5
   ///
   /// 3 --> 5
   ///
-  /// 4 --> 6
+  /// 4 --> 2
   static func twoDisconnectedComponents() -> TestGraph {
     var twoDisconnectedComponents = TestGraph()
     twoDisconnectedComponents.vertices = [
@@ -158,18 +158,18 @@ extension TestGraph {
 
     twoDisconnectedComponents.incomingEdges = [
       vertex1.id: [],
-      vertex2.id: [vertex1],
+      vertex2.id: [vertex4],
       vertex3.id: [],
       vertex4.id: [vertex3],
       vertex5.id: [vertex3, vertex4],
-      vertex6.id: [vertex4],
+      vertex6.id: [vertex1],
     ]
 
     twoDisconnectedComponents.outgoingEdges = [
-      vertex1.id: [vertex2],
+      vertex1.id: [vertex6],
       vertex2.id: [],
       vertex3.id: [vertex4, vertex5],
-      vertex4.id: [vertex5, vertex6],
+      vertex4.id: [vertex2, vertex5],
       vertex5.id: [],
       vertex6.id: [],
     ]
@@ -187,5 +187,14 @@ extension TestGraph {
     ]
 
     return complementOfK3
+  }
+
+  static func oneVertex() -> TestGraph {
+    var oneVertex = TestGraph()
+    oneVertex.vertices = [
+      vertex5
+    ]
+
+    return oneVertex
   }
 }
