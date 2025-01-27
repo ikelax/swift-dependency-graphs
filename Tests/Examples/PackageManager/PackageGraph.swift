@@ -4,9 +4,10 @@ import DependencyGraphs
 typealias PackageGraph = DependencyGraph<Package>
 
 extension PackageGraph {
-  func findAllDependencies(of package: Package) {
+  func findAllDependencies(of package: Package) -> [Package] {
     // Traverse the graph starting from package
     // and collect vertices visited
+    []
   }
 
   // This should be in `DependencyGraph`.
@@ -16,8 +17,9 @@ extension PackageGraph {
     // if circular dependencies would be introduced.
   }
 
-  func findDependents(of package: Package) {
+  func findDependents(of package: Package) -> [Package] {
     // Traverse graph in reverse direction
     // and collect packages.
+    []
   }
 }

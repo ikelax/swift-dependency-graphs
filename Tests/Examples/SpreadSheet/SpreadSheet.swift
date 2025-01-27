@@ -22,11 +22,12 @@ extension SpreadSheet {
     // and update their values.
   }
 
-  func compute(expression: String) {
+  func compute(expression: String) -> Double {
     // Parse expression and get cell names C it depends on.
     // Find C in `vertices` dictionary.
     // We don't need to recompute value of C.
     // Compute expression.
+    0.0
   }
 
   // This should be in `DependencyGraph`.
