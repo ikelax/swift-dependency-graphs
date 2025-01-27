@@ -1,0 +1,10 @@
+disabled_rules:
+  - trailing_comma
+
+included:
+  - Sources
+  - Tests
+  - Package.swift
+
+strict: true
+reporter: emoji
