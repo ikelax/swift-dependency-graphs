@@ -1,5 +1,5 @@
 struct Cell: Identifiable, Hashable {
-    let id: Int
-    let computedValue: Int
-    let expression: String
+  let id: Coordinate
+  let computedValue: Int
+  let expression: String
 }
