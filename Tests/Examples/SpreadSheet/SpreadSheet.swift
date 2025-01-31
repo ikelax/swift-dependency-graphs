@@ -5,7 +5,7 @@ typealias SpreadSheet = DependencyGraph<Cell>
 
 extension SpreadSheet {
   // This should be in `DependencyGraph`.
-  func insert(cell: Cell, withDependencies dependencies: [Cell: Cell]) {
+  func insert(cell: Cell, withDependencies dependencies: [Cell]) {
     // Call `insert` method in `DependencyGraph`.
     // `inserts` also inserts the dependencies of `cell`
     // and checks if circular dependencies would be introduced.
