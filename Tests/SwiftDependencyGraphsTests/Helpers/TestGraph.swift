@@ -178,14 +178,14 @@ extension TestGraph {
   }
 
   /// Returns the graph on 3 vertices without any edges.
-  static func complementOfK3() -> TestGraph {
-    var complementOfK3 = TestGraph()
-    complementOfK3.vertices = [
+  static func threeVertices() -> TestGraph {
+    var threeVertices = TestGraph()
+    threeVertices.vertices = [
       vertex1.id: vertex1,
       vertex2.id: vertex2,
       vertex3.id: vertex3,
     ]
 
-    return complementOfK3
+    return threeVertices
   }
 }

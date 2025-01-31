@@ -104,4 +104,8 @@ public struct DependencyGraph<V> where V: Hashable, V: Identifiable {
       }
     return edges[vertex.id]
   }
+  
+  func becomesCyclicWith(vertices: [V], edges: [(V, V)]) -> Bool {
+    return true
+  }
 }
