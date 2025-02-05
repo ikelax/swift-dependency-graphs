@@ -2,7 +2,7 @@ import Testing
 
 @testable import DependencyGraphs
 
-@Suite("starting from vertex 1 in forwards direction") struct DfsPathTests {
+@Suite("starting from vertex 1 in forwards direction") struct DfsReducerPathTests {
   @Suite("visits all vertices") struct VisitAllVerticesTests {
     @Test("with the public method") func dfs() {
       #expect(

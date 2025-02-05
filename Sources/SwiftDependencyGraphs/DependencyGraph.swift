@@ -4,7 +4,7 @@ public struct DependencyGraph<V> where V: Hashable, V: Identifiable {
   typealias Edge = (V, V)
 
   /// The vertices of the dependency graph.
-  public internal(set) var vertices: [V.ID: V] = [:]
+  public internal(set) var vertices: Set<V> = []
 
   // For efficiency, two hashsets are maintained.
 
@@ -20,7 +20,7 @@ public struct DependencyGraph<V> where V: Hashable, V: Identifiable {
 
   /// Returns `true` iff at least one vertex satisfies the `predicate`.
   func contains(vertexWith predicate: (V) -> Bool) -> Bool {
-    return vertices.contains(where: { _, vertex in predicate(vertex) })
+    return vertices.contains(where: { vertex in predicate(vertex) })
   }
 
   /// Traverses the vertices in the dependency graph and reduces the visited vertices.
@@ -47,7 +47,50 @@ public struct DependencyGraph<V> where V: Hashable, V: Identifiable {
     )
   }
 
-  /// Traverses the vertices in the dependency graph and reduces the visited vertices.
+  /// Traverses the vertices in the dependency graph that are reachable from `vertex` and returns the first
+  /// vertex that satisfies `predicate` if there is such a vertex.
+  /// - Parameters:
+  ///   - vertex: The vertex the depth-first search starts from
+  ///   - direction: The direction of the depth-first search. It is either `.forwards` and
+  ///   therefore in the direction of the arrows of the edges or `.backwards`.
+  ///   - visited: Tracks vertices that were already visited by the depth-first search
+  ///   - predicate: The predicate to satisfy
+  internal func depthFirstSearchImpl(
+    startingFrom vertex: V,
+    in direction: TraverseDirection,
+    withVisited visited: Set<V>,
+    firstWhere predicate: (V) -> Bool
+  ) -> V? {
+    guard let neighbours = self.neighbours(of: vertex, in: direction)
+    else {
+      return nil
+    }
+
+    if visited.contains(vertex) {
+      return nil
+    }
+
+    if predicate(vertex) {
+      return vertex
+    }
+
+    var visited = visited
+    visited.insert(vertex)
+
+    for neighbour in neighbours {
+      if let vertex = depthFirstSearchImpl(
+        startingFrom: neighbour, in: direction, withVisited: visited, firstWhere: predicate)
+      {
+        return vertex
+      }
+    }
+
+    return nil
+  }
+
+  // TODO: depthFirstSearch
+
+  /// Traverses the vertices in the dependency graph that are reachable from `vertex` and reduces the visited vertices.
   /// - Parameters:
   ///   - vertex: The vertex the depth-first search starts from
   ///   - direction: The direction of the depth-first search. It is either `.forwards` and
@@ -64,7 +107,8 @@ public struct DependencyGraph<V> where V: Hashable, V: Identifiable {
     reduceWith reducer: (_ accumulator: T, _ currentVertex: V) -> T,
     withInitialValue accumulator: T
   ) -> T {
-    guard let neighbours = self.neighbours(of: vertex, in: .forwards)
+    // TODO: add tests for this change
+    guard let neighbours = self.neighbours(of: vertex, in: direction)
     else {
       return accumulator
     }
@@ -104,8 +148,22 @@ public struct DependencyGraph<V> where V: Hashable, V: Identifiable {
       }
     return edges[vertex.id]
   }
-  
-  func becomesCyclicWith(vertices: [V], edges: [(V, V)]) -> Bool {
-    return true
+
+  // TODO: Comments and explanation in Technical Documentation
+  internal func becomesCyclicWith(edge: (V, V)) -> Bool {
+    var temporaryDependencyGraph = self
+    let headVertex = edge.0
+    let tailVertex = edge.1
+    temporaryDependencyGraph.vertices.insert(headVertex)
+    temporaryDependencyGraph.vertices.insert(tailVertex)
+    _ = temporaryDependencyGraph.incomingEdges[edge.1.id]?.unordered.insert(edge.0)
+    _ = temporaryDependencyGraph.outgoingEdges[edge.0.id]?.unordered.insert(edge.1)
+
+    return temporaryDependencyGraph.depthFirstSearchImpl(
+      startingFrom: tailVertex, in: .forwards, withVisited: [],
+      firstWhere: {
+        vertex in
+        vertex.id == headVertex.id
+      }) != nil
   }
 }
