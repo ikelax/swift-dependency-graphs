@@ -2,7 +2,7 @@ import Testing
 
 @testable import DependencyGraphs
 
-@Suite("starting from vertex 1 in forwards direction") struct DfsFirstWherePathTests {
+@Suite("starting from vertex 1 in forwards direction") struct ForwardsDfsFirstWherePathTests {
   @Suite("finds a vertex with id 4") struct FindVertexWithId4Tests {
     @Test("with the public method") func dfs() {
       #expect(
@@ -84,5 +84,49 @@ import Testing
         startingFrom: vertex1, in: .forwards, withVisited: [],
         firstWhere: firstWhereVertexId(is: 5))
         == vertex5)
+  }
+}
+
+@Suite("in backwards direction") struct BackwardsDfsFirstWherePathTests {
+  @Test("does not find a vertex with an id > 1 starting from vertex 1") func notFindVertex() {
+    #expect(
+      TestGraph.path().depthFirstSearchImpl(
+        startingFrom: vertex1, in: .backwards, withVisited: [],
+        firstWhere: firstWhereVertexId(greaterThan: 1))
+        == nil)
+  }
+
+  @Suite("starting from vertex 5") struct FindsVertex {
+    @Test("finds vertex with id 3") func findsVertexWithId3() {
+      #expect(
+        TestGraph.path().depthFirstSearchImpl(
+          startingFrom: vertex5, in: .backwards, withVisited: [],
+          firstWhere: firstWhereVertexId(is: 3))
+          == vertex3)
+    }
+
+    @Test("finds vertex with id 4") func findsVertexWithId4() {
+      #expect(
+        TestGraph.path().depthFirstSearchImpl(
+          startingFrom: vertex5, in: .backwards, withVisited: [],
+          firstWhere: firstWhereVertexId(is: 4))
+          == vertex4)
+    }
+
+    @Test("finds vertex with id 1") func findsVertexWithId1() {
+      #expect(
+        TestGraph.path().depthFirstSearchImpl(
+          startingFrom: vertex5, in: .backwards, withVisited: [],
+          firstWhere: firstWhereVertexId(is: 1))
+          == vertex1)
+    }
+
+    @Test("finds vertex with complex predicate") func findsVertexWithPredicate() {
+      #expect(
+        TestGraph.path().depthFirstSearchImpl(
+          startingFrom: vertex5, in: .backwards, withVisited: [],
+          firstWhere: { $0.id > 1 && $0.id < 3 })
+          == vertex2)
+    }
   }
 }
