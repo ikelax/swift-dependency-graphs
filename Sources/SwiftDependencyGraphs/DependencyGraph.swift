@@ -114,8 +114,6 @@ public struct DependencyGraph<V> where V: Hashable, V: Identifiable {
     return nil
   }
 
-  // TODO: depthFirstSearch
-
   /// Traverses the vertices in the dependency graph that are reachable from `vertex` and reduces the visited vertices.
   /// - Parameters:
   ///   - vertex: The vertex the depth-first search starts from
