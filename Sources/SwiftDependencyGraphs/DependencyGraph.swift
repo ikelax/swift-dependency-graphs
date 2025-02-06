@@ -31,8 +31,7 @@ public struct DependencyGraph<V> where V: Hashable, V: Identifiable {
   ///   therefore in the direction of the arrows of the edges or `.backwards`.
   ///   - predicate: The predicate to satisfy
   ///   - Returns: The first vertex found satisfying `predicate` if such a vertex exists. Otherwise, it returns `nil`.
-  ///   If `vertex` does not exist in the graph or does not have neighbours,
-  /// it just returns `nil`.
+  ///   If `vertex` does not exist in the graph or does not have neighbours, it just returns `nil`.
   public func depthFirstSearch(
     startingFrom vertex: V,
     in direction: TraverseDirection,
@@ -79,8 +78,7 @@ public struct DependencyGraph<V> where V: Hashable, V: Identifiable {
   ///   - visited: Tracks vertices that were already visited by the depth-first search
   ///   - predicate: The predicate to satisfy
   ///   - Returns: The first vertex found satisfying `predicate` if such a vertex exists. Otherwise, it returns `nil`.
-  ///   If `vertex` does not exist in the graph or does not have neighbours,
-  /// it just returns `nil`.
+  ///   If `vertex` does not exist in the graph or does not have neighbours, it just returns `nil`.
   internal func depthFirstSearchImpl(
     startingFrom vertex: V,
     in direction: TraverseDirection,
@@ -173,7 +171,11 @@ public struct DependencyGraph<V> where V: Hashable, V: Identifiable {
     return edges[vertex.id]
   }
 
-  // TODO: Comments and explanation in Technical Documentation
+  // TODO: explanation in Technical Documentation
+  
+  /// Checks if the dependency graph with `edge` is cyclic.
+  /// - Parameter edge: The edge to add to the dependency graph
+  /// - Returns: True iff the dependency graph with `edge` is cyclic.
   internal func becomesCyclicWith(edge: (V, V)) -> Bool {
     var temporaryDependencyGraph = self
     let headVertex = edge.0
