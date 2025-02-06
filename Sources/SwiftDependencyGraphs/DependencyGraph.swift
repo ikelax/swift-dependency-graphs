@@ -176,7 +176,7 @@ public struct DependencyGraph<V> where V: Hashable, V: Identifiable {
   /// Checks if the dependency graph with `edge` is cyclic.
   /// - Parameter edge: The edge to add to the dependency graph
   /// - Returns: True iff the dependency graph with `edge` is cyclic.
-  internal func becomesCyclicWith(edge: (V, V)) -> Bool {
+  internal func isCyclicWith(edge: (V, V)) -> Bool {
     var temporaryDependencyGraph = self
     let headVertex = edge.0
     let tailVertex = edge.1

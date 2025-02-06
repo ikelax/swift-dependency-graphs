@@ -2,11 +2,11 @@ import Testing
 
 @testable import DependencyGraphs
 
-@Suite("Two disconnected components") struct BecomesCyclicWithTwoDisconnectedComponentsTests {
+@Suite("Two disconnected components") struct IsCyclicWithTwoDisconnectedComponentsTests {
 
-  @Test("become cyclic if (2, 3) and (5, 1) are added") func addEdges23And51() {
+  @Test("is cyclic with (2, 3) and (5, 1)") func addEdges23And51() {
     #expect(
-      TestGraph.twoDisconnectedComponents().becomesCyclicWith(
+      TestGraph.twoDisconnectedComponents().isCyclicWith(
         edge: (vertex2, vertex3)) == false)
 
     var graph = TestGraph.twoDisconnectedComponents()
@@ -14,7 +14,7 @@ import Testing
     _ = graph.outgoingEdges[vertex2.id]?.unordered.insert(vertex3)
 
     #expect(
-      graph.becomesCyclicWith(
+      graph.isCyclicWith(
         edge: (vertex5, vertex1)) == true)
   }
 }

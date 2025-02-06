@@ -2,11 +2,11 @@ import Testing
 
 @testable import DependencyGraphs
 
-@Suite("A graph with three vertices") struct BecomesCyclicWithThreeVerticesTests {
+@Suite("A graph with three vertices") struct IsCyclicWithThreeVerticesTests {
 
-  @Test("becomes cyclic if (1, 2) and (2, 1) are added") func addEdges12And21() {
+  @Test("is cyclic with (1, 2) and (2, 1)") func addEdges12And21() {
     #expect(
-      TestGraph.threeVertices().becomesCyclicWith(
+      TestGraph.threeVertices().isCyclicWith(
         edge: (vertex1, vertex2)) == false)
 
     var graph = TestGraph.threeVertices()
@@ -14,13 +14,13 @@ import Testing
     _ = graph.outgoingEdges[vertex1.id]?.unordered.insert(vertex2)
 
     #expect(
-      graph.becomesCyclicWith(
+      graph.isCyclicWith(
         edge: (vertex2, vertex1)) == true)
   }
 
-  @Test("becomes cyclic if (1, 4) and (4, 1) are added") func addEdge14And41() {
+  @Test("is cyclic with (1, 4) and (4, 1)") func addEdge14And41() {
     #expect(
-      TestGraph.threeVertices().becomesCyclicWith(
+      TestGraph.threeVertices().isCyclicWith(
         edge: (vertex1, vertex4)) == false)
 
     var graph = TestGraph.threeVertices()
@@ -30,13 +30,13 @@ import Testing
     _ = graph.outgoingEdges[vertex1.id]?.unordered.insert(vertex4)
 
     #expect(
-      graph.becomesCyclicWith(
+      graph.isCyclicWith(
         edge: (vertex4, vertex1)) == true)
   }
 
-  @Test("does not become cyclic if (1, 2) and (3, 1) are added") func addEdges12And31() {
+  @Test("is not cyclic with (1, 2) and (3, 1)") func addEdges12And31() {
     #expect(
-      TestGraph.threeVertices().becomesCyclicWith(
+      TestGraph.threeVertices().isCyclicWith(
         edge: (vertex1, vertex2)) == false)
 
     var graph = TestGraph.threeVertices()
@@ -44,7 +44,7 @@ import Testing
     _ = graph.outgoingEdges[vertex1.id]?.unordered.insert(vertex2)
 
     #expect(
-      graph.becomesCyclicWith(
+      graph.isCyclicWith(
         edge: (vertex3, vertex1)) == false)
 
   }
