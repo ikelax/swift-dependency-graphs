@@ -4,13 +4,13 @@ import Testing
 
 @Suite("starting from vertex 1 in forwards direction") struct DfsFirstWherePathTests {
   @Suite("finds a vertex with id 4") struct FindVertexWithId4Tests {
-    //    @Test("with the public method") func dfs() {
-    //      #expect(
-    //        TestGraph.path().depthFirstSearch(
-    //          startingFrom: vertex1, in: .forwards, reduceWith: appendReducer, withInitialValue: []
-    //        )
-    //          == [vertex1, vertex2, vertex3, vertex4, vertex5])
-    //    }
+    @Test("with the public method") func dfs() {
+      #expect(
+        TestGraph.path().depthFirstSearch(
+          startingFrom: vertex1, in: .forwards, firstWhere: firstWhereVertexId(is: 3)
+        )
+          == vertex3)
+    }
 
     @Test("with the private method") func findsVertexWithId4() {
       #expect(

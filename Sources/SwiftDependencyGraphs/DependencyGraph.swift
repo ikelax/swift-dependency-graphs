@@ -23,6 +23,29 @@ public struct DependencyGraph<V> where V: Hashable, V: Identifiable {
     return vertices.contains(where: { vertex in predicate(vertex) })
   }
 
+  /// Traverses the vertices in the dependency graph that are reachable from `vertex` and searches for the first
+  /// vertex that satisfies `predicate`.
+  /// - Parameters:
+  ///   - vertex: The vertex the depth-first search starts from
+  ///   - direction: The direction of the depth-first search. It is either `.forwards` and
+  ///   therefore in the direction of the arrows of the edges or `.backwards`.
+  ///   - predicate: The predicate to satisfy
+  ///   - Returns: The first vertex found satisfying `predicate` if such a vertex exists. Otherwise, it returns `nil`.
+  ///   If `vertex` does not exist in the graph or does not have neighbours,
+  /// it just returns `nil`.
+  public func depthFirstSearch(
+    startingFrom vertex: V,
+    in direction: TraverseDirection,
+    firstWhere predicate: (V) -> Bool
+  ) -> V? {
+    depthFirstSearchImpl(
+      startingFrom: vertex,
+      in: direction,
+      withVisited: [],
+      firstWhere: predicate
+    )
+  }
+
   /// Traverses the vertices in the dependency graph and reduces the visited vertices.
   /// - Parameters:
   ///   - vertex: The vertex the depth-first search starts from
@@ -30,7 +53,7 @@ public struct DependencyGraph<V> where V: Hashable, V: Identifiable {
   ///   and therefore in the direction of the arrows of the edges or `.backwards`.
   ///   - reducer: Reduces the visited vertices.
   ///   - accumulator: The accumulator for the reducer.
-  /// - Returns: The accumulated value. If the vertex does not exist in the graph or does not have neighbours,
+  /// - Returns: The accumulated value. If `vertex` does not exist in the graph or does not have neighbours,
   /// it just returns the `accumulator`.
   public func depthFirstSearch<T>(
     startingFrom vertex: V,
@@ -47,14 +70,17 @@ public struct DependencyGraph<V> where V: Hashable, V: Identifiable {
     )
   }
 
-  /// Traverses the vertices in the dependency graph that are reachable from `vertex` and returns the first
-  /// vertex that satisfies `predicate` if there is such a vertex.
+  /// Traverses the vertices in the dependency graph that are reachable from `vertex` and searches for the first
+  /// vertex that satisfies `predicate`.
   /// - Parameters:
   ///   - vertex: The vertex the depth-first search starts from
   ///   - direction: The direction of the depth-first search. It is either `.forwards` and
   ///   therefore in the direction of the arrows of the edges or `.backwards`.
   ///   - visited: Tracks vertices that were already visited by the depth-first search
   ///   - predicate: The predicate to satisfy
+  ///   - Returns: The first vertex found satisfying `predicate` if such a vertex exists. Otherwise, it returns `nil`.
+  ///   If `vertex` does not exist in the graph or does not have neighbours,
+  /// it just returns `nil`.
   internal func depthFirstSearchImpl(
     startingFrom vertex: V,
     in direction: TraverseDirection,
