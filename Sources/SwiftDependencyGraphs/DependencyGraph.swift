@@ -172,7 +172,7 @@ public struct DependencyGraph<V> where V: Hashable, V: Identifiable {
   }
 
   // TODO: explanation in Technical Documentation
-  
+
   /// Checks if the dependency graph with `edge` is cyclic.
   /// - Parameter edge: The edge to add to the dependency graph
   /// - Returns: True iff the dependency graph with `edge` is cyclic.

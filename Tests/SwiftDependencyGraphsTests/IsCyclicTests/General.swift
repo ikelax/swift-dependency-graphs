@@ -4,8 +4,7 @@ import Testing
 
 @Suite("") struct IsCyclicWithTests {
 
-  @Test("graph is not cyclic if an already existing edge is added") func nothingIsChanged()
-  {
+  @Test("graph is not cyclic if an already existing edge is added") func nothingIsChanged() {
     #expect(TestGraph.path().isCyclicWith(edge: (vertex1, vertex2)) == false)
   }
 
