@@ -96,7 +96,7 @@ import Testing
           firstWhere: firstWhereVertexId(greaterThan: 1))
           == nil)
     }
-    
+
     @Test("with implementation method") func notFindingVertexImpl() {
       #expect(
         TestGraph.path().depthFirstSearchImpl(
