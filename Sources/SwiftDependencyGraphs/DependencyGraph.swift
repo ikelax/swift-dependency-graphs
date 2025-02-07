@@ -129,7 +129,6 @@ public struct DependencyGraph<V> where V: Hashable, V: Identifiable {
     reduceWith reducer: (_ accumulator: T, _ currentVertex: V) -> T,
     withInitialValue accumulator: T
   ) -> T {
-    // TODO: add tests for this change
     guard let neighbours = self.neighbours(of: vertex, in: direction)
     else {
       return accumulator

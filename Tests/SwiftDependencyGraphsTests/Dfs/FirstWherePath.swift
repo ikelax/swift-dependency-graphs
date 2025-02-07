@@ -88,12 +88,22 @@ import Testing
 }
 
 @Suite("in backwards direction") struct BackwardsDfsFirstWherePathTests {
-  @Test("does not find a vertex with an id > 1 starting from vertex 1") func notFindVertex() {
-    #expect(
-      TestGraph.path().depthFirstSearchImpl(
-        startingFrom: vertex1, in: .backwards, withVisited: [],
-        firstWhere: firstWhereVertexId(greaterThan: 1))
-        == nil)
+  @Suite("does not find a vertex with an id > 1 starting from vertex 1") struct MethodTests {
+    @Test("with public method") func notFindingVertexPublic() {
+      #expect(
+        TestGraph.path().depthFirstSearch(
+          startingFrom: vertex1, in: .backwards,
+          firstWhere: firstWhereVertexId(greaterThan: 1))
+          == nil)
+    }
+    
+    @Test("with implementation method") func notFindingVertexImpl() {
+      #expect(
+        TestGraph.path().depthFirstSearchImpl(
+          startingFrom: vertex1, in: .backwards, withVisited: [],
+          firstWhere: firstWhereVertexId(greaterThan: 1))
+          == nil)
+    }
   }
 
   @Suite("starting from vertex 5") struct FindsVertex {
