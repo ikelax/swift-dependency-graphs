@@ -2,8 +2,7 @@ import Testing
 
 @testable import DependencyGraphs
 
-@Suite("Depth-first search always finds the starting vertex") struct AlwaysFindsStartingVertexTests
-{
+@Suite("Depth-first search finds the starting vertex") struct FindsStartingVertexTests {
   @Test("for vertex 1") func findsVertexWithId1() {
     #expect(
       TestGraph.directedC4().depthFirstSearchImpl(

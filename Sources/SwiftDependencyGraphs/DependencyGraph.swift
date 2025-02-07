@@ -103,8 +103,11 @@ public struct DependencyGraph<V> where V: Hashable, V: Identifiable {
 
     for neighbour in neighbours {
       if let vertex = depthFirstSearchImpl(
-        startingFrom: neighbour, in: direction, withVisited: visited, firstWhere: predicate)
-      {
+        startingFrom: neighbour,
+        in: direction,
+        withVisited: visited,
+        firstWhere: predicate
+      ) {
         return vertex
       }
     }
@@ -189,8 +192,7 @@ public struct DependencyGraph<V> where V: Hashable, V: Identifiable {
     // combining P with e.
     return temporaryDependencyGraph.depthFirstSearchImpl(
       startingFrom: tailVertex, in: .forwards, withVisited: [],
-      firstWhere: {
-        vertex in
+      firstWhere: { vertex in
         vertex.id == headVertex.id
       }) != nil
   }

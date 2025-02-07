@@ -2,9 +2,9 @@ import Testing
 
 @testable import DependencyGraphs
 
-@Suite("Two disconnected components") struct IsCyclicWithTwoDisconnectedComponentsTests {
+@Suite("Two disconnected components") struct IsCyclicWithDisconnectedTests {
 
-  @Test("is cyclic with (2, 3) and (5, 1)") func addEdges23And51() {
+  @Test("are cyclic with (2, 3) and (5, 1)") func addEdges23And51() {
     #expect(
       TestGraph.twoDisconnectedComponents().isCyclicWith(
         edge: (vertex2, vertex3)) == false)
