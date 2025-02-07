@@ -171,8 +171,6 @@ public struct DependencyGraph<V> where V: Hashable, V: Identifiable {
     return edges[vertex.id]
   }
 
-  // TODO: explanation in Technical Documentation
-
   /// Checks if the dependency graph with `edge` is cyclic.
   /// - Parameter edge: The edge to add to the dependency graph
   /// - Returns: True iff the dependency graph with `edge` is cyclic.
@@ -185,6 +183,11 @@ public struct DependencyGraph<V> where V: Hashable, V: Identifiable {
     _ = temporaryDependencyGraph.incomingEdges[edge.1.id]?.unordered.insert(edge.0)
     _ = temporaryDependencyGraph.outgoingEdges[edge.0.id]?.unordered.insert(edge.1)
 
+    // A dependency graph G is acyclic. If G with the edge e is cyclic,
+    // the cycle in G must contain e. Otherwise, G would be cyclic.
+    // Hence, it suffices to check if it is possible to reach headVertex
+    // from tailVertex. If there such a path P, we have found a cycle by
+    // combining P with e.
     return temporaryDependencyGraph.depthFirstSearchImpl(
       startingFrom: tailVertex, in: .forwards, withVisited: [],
       firstWhere: {
