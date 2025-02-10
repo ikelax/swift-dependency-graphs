@@ -77,6 +77,7 @@ import Testing
 }
 
 @Suite("When it fails to remove an edge,") struct NoModificationWhenFailTests {
+
   var graph = TestGraph.path()
 
   init() {
