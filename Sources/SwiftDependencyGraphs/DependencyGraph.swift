@@ -1,10 +1,10 @@
 import OrderedCollections
 
-public struct DependencyGraph<V> where V: Hashable, V: Identifiable {
+public struct DependencyGraph<V>: Sequence where V: Hashable, V: Identifiable {
   typealias Edge = (V, V)
 
   /// The vertices of the dependency graph.
-  public internal(set) var vertices: [V.ID: V] = [:]
+  public internal(set) var vertices: [V] = []
 
   // For efficiency, two hashsets are maintained.
 
@@ -20,7 +20,7 @@ public struct DependencyGraph<V> where V: Hashable, V: Identifiable {
 
   /// Returns `true` iff at least one vertex satisfies the `predicate`.
   func contains(vertexWith predicate: (V) -> Bool) -> Bool {
-    return vertices.contains(where: { _, vertex in predicate(vertex) })
+    return vertices.contains(where: { vertex in predicate(vertex) })
   }
 
   /// Traverses the vertices in the dependency graph and reduces the visited vertices.
@@ -103,5 +103,11 @@ public struct DependencyGraph<V> where V: Hashable, V: Identifiable {
         incomingEdges
       }
     return edges[vertex.id]
+  }
+
+  /// This is required for the Sequence Protocol conformance.
+  /// - Returns: The iterator
+  public func makeIterator() -> DepthFirstSearchIterator<V> {
+    return DepthFirstSearchIterator<V>(self)
   }
 }
