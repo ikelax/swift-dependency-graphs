@@ -68,12 +68,6 @@ import Testing
     graph.remove(edge: edge)
     #expect(graph.remove(edge: edge) == nil)
   }
-
-  @Test("twice") mutating func twiceFail() {
-    let edge = (vertex2, vertex5)
-    graph.remove(edge: edge)
-    #expect(graph.remove(edge: edge) == nil)
-  }
 }
 
 @Suite("When it fails to remove an edge,") struct NoModificationWhenFailTests {
