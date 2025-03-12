@@ -1,3 +1,8 @@
+type_name:
+  max_length:
+    warning: 50
+    error: 50
+
 disabled_rules:
   - trailing_comma
 
