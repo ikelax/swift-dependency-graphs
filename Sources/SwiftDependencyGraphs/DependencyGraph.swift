@@ -129,7 +129,7 @@ public struct DependencyGraph<V> where V: Hashable, V: Identifiable {
   }
 
   /// Inserts the given vertex into the graph if it is not already present.
-  /// - Parameter newVertex: The vertex to insert.
+  /// - Parameter newVertex: A vertex to insert into the graph.
   /// - Returns: `(true, newVertex)` if `newVertex` was not contained in the graph.
   /// If a vertex equal to `newVertex` was already contained in the graph, the method returns `(false, oldVertex)`,
   /// where `oldVertex` is the vertex that was equal to `newVertex`. In some cases, `oldVertex` may be
