@@ -173,6 +173,29 @@ public struct DependencyGraph<V> where V: Hashable, V: Identifiable {
     return edges[vertex.id]
   }
 
+  /// Removes the edge from the graph.
+  /// - Parameter edge: The edge to remove.
+  /// - Returns: The edge if it was in the graph and `nil` otherwise.
+  @discardableResult mutating public func remove(edge: (V, V)) -> (V, V)? {
+    let head = edge.0
+    let tail = edge.1
+
+    guard vertices[head.id] != nil,
+      vertices[tail.id] != nil,
+      // The type ensures that this is true if and only if
+      // incomingEdges[tail.id]?.contains(head) is also true.
+      let isEdgeInGraph = outgoingEdges[head.id]?.contains(tail),
+      isEdgeInGraph
+    else {
+      return nil
+    }
+
+    incomingEdges[tail.id]?.remove(head)
+    outgoingEdges[head.id]?.remove(tail)
+
+    return edge
+  }
+
   /// Checks if the dependency graph with `edge` is cyclic.
   /// - Parameter edge: The edge to add to the dependency graph
   /// - Returns: True iff the dependency graph with `edge` is cyclic.
