@@ -180,8 +180,8 @@ public struct DependencyGraph<V> where V: Hashable, V: Identifiable {
     let head = edge.0
     let tail = edge.1
 
-    guard vertices.contains(where: {vertex in vertex.id == head.id}),
-          vertices.contains(where: {vertex in vertex.id == tail.id}),
+    guard vertices.contains(where: { vertex in vertex.id == head.id }),
+      vertices.contains(where: { vertex in vertex.id == tail.id }),
       // The type ensures that this is true if and only if
       // incomingEdges[tail.id]?.contains(head) is also true.
       let isEdgeInGraph = outgoingEdges[head.id]?.contains(tail),
