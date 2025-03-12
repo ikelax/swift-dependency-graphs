@@ -30,18 +30,19 @@ jobs:
           eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
           brew install xcbeautify
           set -o pipefail && swift test | xcbeautify --renderer github-actions
-  test-windows:
-    name: Test on Windows Server 2022
-    runs-on: windows-2022
-    steps:
-      - uses: compnerd/gha-setup-swift@main
-        with:
-          branch: swift-6.0-release
-          tag: 6.0-RELEASE
-      - uses: actions/checkout@v4
-      - name: Test
-        run: |
-          Set-StrictMode -Version Latest
-          $ErrorActionPreference = "Stop"
-          $PSNativeCommandUseErrorActionPreference = $true
-          swift test
+  # See https://github.com/ikelax/swift-dependency-graphs/issues/28
+  # test-windows:
+  #   name: Test on Windows Server 2022
+  #   runs-on: windows-2022
+  #   steps:
+  #     - uses: compnerd/gha-setup-swift@main
+  #       with:
+  #         branch: swift-6.0-release
+  #         tag: 6.0-RELEASE
+  #     - uses: actions/checkout@v4
+  #     - name: Test
+  #       run: |
+  #         Set-StrictMode -Version Latest
+  #         $ErrorActionPreference = "Stop"
+  #         $PSNativeCommandUseErrorActionPreference = $true
+  #         swift test
