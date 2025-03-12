@@ -2,8 +2,8 @@ import Testing
 
 @testable import DependencyGraphs
 
-@Suite("starting from vertex 1 in forwards direction") struct DfsReducerPathTests {
-  @Suite("visits all vertices") struct VisitAllVerticesTests {
+@Suite("DFS on path starting from vertex 1") struct DfsReducerPathTests {
+  @Suite("visits all vertices") struct MethodTests {
     @Test("with the public method") func dfs() {
       #expect(
         TestGraph.path().depthFirstSearch(
@@ -47,8 +47,8 @@ import Testing
   }
 }
 
-@Suite("in backwards direction") struct BackwardsDfsReducerPathTests {
-  @Suite("visits all vertices") struct VisitAllVerticesTests {
+@Suite("DFS on path starting from vertex 1 in backwards direction") struct BackwardsDfsReducerPathTests {
+  @Suite("visits all vertices") struct MethodTests {
     @Test("with the public method") func dfs() {
       #expect(
         TestGraph.path().depthFirstSearch(

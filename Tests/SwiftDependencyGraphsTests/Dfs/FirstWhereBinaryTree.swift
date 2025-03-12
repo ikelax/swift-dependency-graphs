@@ -2,7 +2,7 @@ import Testing
 
 @testable import DependencyGraphs
 
-@Suite("starting from vertex 1 in forwards direction") struct DfsFirstWhereBinaryTreeTests {
+@Suite("DFS on binary tree") struct DfsFirstWhereBinaryTreeTests {
   @Test("finds a vertex with an id > 4") func findsVertexWithId3() {
     #expect(
       TestGraph.binaryTree().depthFirstSearchImpl(

@@ -2,8 +2,9 @@ import Testing
 
 @testable import DependencyGraphs
 
-@Suite("starting from vertex 1") struct StartingFromVertex1Tests {
-  @Suite("in forwards direction") struct InForwardsDirection {
+@Suite("DFS on path with inverted edge") struct DfsFirstWherePathWithInvertedEdgeTests {
+
+  @Suite("starting from vertex 1 in forwards direction") struct StartingFromVertex1InForwardsDirectionTests {
     let pathWithInvertedEdge = TestGraph.pathWithInvertedEdge()
 
     @Test("finds the vertex with id 2") func findsVertexWithId2() {
@@ -31,7 +32,7 @@ import Testing
     }
   }
 
-  @Suite("in backwards direction") struct InBackwardsDirection {
+  @Suite("starting from vertex 1 in backwards direction") struct StartingFromVertex1InBackwardsDirectionTests {
     let pathWithInvertedEdge = TestGraph.pathWithInvertedEdge()
 
     @Test("does not find the vertex with id 2") func findsVertexWithId2() {
@@ -58,32 +59,32 @@ import Testing
           == nil)
     }
   }
-}
 
-@Suite("starting from vertex 2 in backwards direction") struct StartingFromVertex3Tests {
-  let pathWithInvertedEdge = TestGraph.pathWithInvertedEdge()
+  @Suite("starting from vertex 2 in backwards direction") struct StartingFromVertex2InBackwardsDirectionTests {
+    let pathWithInvertedEdge = TestGraph.pathWithInvertedEdge()
 
-  @Test("finds the vertex with id 1") func findsNotVertexWithId3() {
-    #expect(
-      pathWithInvertedEdge.depthFirstSearchImpl(
-        startingFrom: vertex2, in: .backwards, withVisited: [],
-        firstWhere: firstWhereVertexId(is: 1))
-        == vertex1)
-  }
+    @Test("finds the vertex with id 1") func findsNotVertexWithId3() {
+      #expect(
+        pathWithInvertedEdge.depthFirstSearchImpl(
+          startingFrom: vertex2, in: .backwards, withVisited: [],
+          firstWhere: firstWhereVertexId(is: 1))
+          == vertex1)
+    }
 
-  @Test("finds the vertex with id 3") func findsVertexWithId3() {
-    #expect(
-      pathWithInvertedEdge.depthFirstSearchImpl(
-        startingFrom: vertex2, in: .backwards, withVisited: [],
-        firstWhere: firstWhereVertexId(is: 3))
-        == vertex3)
-  }
+    @Test("finds the vertex with id 3") func findsVertexWithId3() {
+      #expect(
+        pathWithInvertedEdge.depthFirstSearchImpl(
+          startingFrom: vertex2, in: .backwards, withVisited: [],
+          firstWhere: firstWhereVertexId(is: 3))
+          == vertex3)
+    }
 
-  @Test("does not find the vertex with id 4") func findsNotVertexWithId4() {
-    #expect(
-      pathWithInvertedEdge.depthFirstSearchImpl(
-        startingFrom: vertex2, in: .backwards, withVisited: [],
-        firstWhere: firstWhereVertexId(is: 4))
-        == nil)
+    @Test("does not find the vertex with id 4") func findsNotVertexWithId4() {
+      #expect(
+        pathWithInvertedEdge.depthFirstSearchImpl(
+          startingFrom: vertex2, in: .backwards, withVisited: [],
+          firstWhere: firstWhereVertexId(is: 4))
+          == nil)
+    }
   }
 }

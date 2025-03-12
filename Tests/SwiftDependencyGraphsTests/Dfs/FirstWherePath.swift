@@ -2,10 +2,10 @@ import Testing
 
 @testable import DependencyGraphs
 
-@Suite("starting from vertex 1 in forwards direction") struct ForwardsDfsFirstWherePathTests {
+@Suite("DFS on path starting from vertex 1") struct DfsFirstWherePathTests {
   let path = TestGraph.path()
 
-  @Suite("finds a vertex with id 4") struct FindVertexWithId4Tests {
+  @Suite("finds a vertex with id 4") struct MethodTests {
     let path = TestGraph.path()
 
     @Test("with the public method") func dfs() {
@@ -16,7 +16,7 @@ import Testing
           == vertex3)
     }
 
-    @Test("with the private method") func findsVertexWithId4() {
+    @Test("with the private method") func impl() {
       #expect(
         path.depthFirstSearchImpl(
           startingFrom: vertex1, in: .forwards, withVisited: [],
@@ -91,8 +91,8 @@ import Testing
   }
 }
 
-@Suite("in backwards direction") struct BackwardsDfsFirstWherePathTests {
-  @Suite("does not find a vertex with an id > 1 starting from vertex 1") struct MethodTests {
+@Suite("DFS on path in backwards direction") struct BackwardsDfsFirstWherePathTests {
+  @Suite("starting from vertex 1 does not find a vertex with an id > 1") struct MethodTests {
     let path = TestGraph.path()
 
     @Test("with public method") func notFindingVertexPublic() {

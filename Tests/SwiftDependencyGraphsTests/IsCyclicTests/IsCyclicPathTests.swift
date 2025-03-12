@@ -2,7 +2,7 @@ import Testing
 
 @testable import DependencyGraphs
 
-@Suite("A path with five vertices") struct IsCyclicWithPathTests {
+@Suite("A path") struct IsCyclicWithPathTests {
   let path = TestGraph.path()
 
   @Test("is cyclic with (5, 1)") func addEdge51() {
