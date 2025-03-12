@@ -6,6 +6,6 @@ import Testing
 
   @Test("is cyclic") func cycleGraphIsCyclic() {
     #expect(
-      TestGraph.directedC4().isCyclicWith(edge: (vertex1, vertex2)) == true)
+      TestGraph.cycle().isCyclicWith(edge: (vertex1, vertex2)) == true)
   }
 }

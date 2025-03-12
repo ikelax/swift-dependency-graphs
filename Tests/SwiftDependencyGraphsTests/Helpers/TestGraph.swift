@@ -10,7 +10,7 @@ extension TestGraph {
   ///
   /// - Returns: The graph C4.
   /// - Note: The directed cycle graph on 4 vertices is usually denoted by $C^4$ or $C\_4$.
-  static func directedC4() -> TestGraph {
+  static func cycle() -> TestGraph {
     var circle4 = TestGraph()
     circle4.vertices = [
       vertex1,
@@ -64,7 +64,7 @@ extension TestGraph {
   }
 
   /// Returns the graph which looks like this: 1 --> 2 <-- 3 --> 4 .
-  static func path4WithInvertedEdge() -> TestGraph {
+  static func pathWithInvertedEdge() -> TestGraph {
     var p4WithInvertedEdge = TestGraph()
     p4WithInvertedEdge.vertices = [
       vertex1,
