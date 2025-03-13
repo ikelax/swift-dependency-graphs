@@ -4,3 +4,7 @@ func appendReducer<T>(visited: [T], vertex: T) -> [T] {
   visited.append(vertex)
   return visited
 }
+
+func addReducer(sum: Int, vertex: Vertex) -> Int {
+  return sum + vertex.id
+}
