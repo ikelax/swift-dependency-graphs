@@ -106,16 +106,16 @@ public struct DependencyGraph<V> where V: Hashable, V: Identifiable {
       }
     return edges[vertex.id]
   }
-  
+
   public func neighbours(of vertex: V) -> OrderedSet<V>? {
     guard let forwards = neighbours(of: vertex, in: .forwards) else {
       return neighbours(of: vertex, in: .backwards)
     }
-    
+
     guard let backwards = neighbours(of: vertex, in: .backwards) else {
       return forwards
     }
-    
+
     return forwards.union(backwards)
   }
 
