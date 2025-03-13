@@ -2,8 +2,8 @@ import Testing
 
 @testable import DependencyGraphs
 
-@Suite("Inserting a new vertex with a unique id and a unique label into the graph")
-struct InsertVertexSuccessfullyTests {
+// swiftlint:disable:next line_length
+@Suite("Inserting a new vertex with a unique id and a unique label into the graph") struct InsertVertexSuccessfullyTests {
 
   var graph = TestGraph.path()
   let newVertex = Vertex(id: 6)
@@ -38,8 +38,8 @@ struct InsertVertexSuccessfullyTests {
   }
 }
 
-@Suite("Inserting a new vertex with a unique id and a duplicate label into the graph")
-struct InsertVertexDuplicateLabelSuccessfullyTests {
+// swiftlint:disable:next line_length
+@Suite("Inserting a new vertex with a unique id and a duplicate label into the graph") struct InsertVertexDuplicateLabelSuccessfullyTests {
 
   var graph = TestGraph.path()
   let newVertex = Vertex(id: 6, label: "5")
@@ -110,8 +110,8 @@ struct InsertVertexDuplicateLabelSuccessfullyTests {
   }
 }
 
-@Suite("Does not insert a vertex with a duplicate id and a duplicate label into the graph and")
-struct InsertVertexDuplicateIdAndLabelFailedTests {
+// swiftlint:disable:next line_length
+@Suite("Does not insert a vertex with a duplicate id and a duplicate label into the graph and") struct InsertVertexDuplicateIdAndLabelFailedTests {
 
   var graph = TestGraph.path()
   let newVertex = Vertex(id: 5)
@@ -138,8 +138,8 @@ struct InsertVertexDuplicateIdAndLabelFailedTests {
   }
 }
 
-@Suite("Does not insert a vertex with a duplicate id and a unique label into the graph and")
-struct InsertVertexDuplicateIdAndUniqueLabelFailedTests {
+// swiftlint:disable:next line_length
+@Suite("Does not insert a vertex with a duplicate id and a unique label into the graph and") struct InsertVertexDuplicateIdAndUniqueLabelFailedTests {
 
   var graph = TestGraph.path()
   let newVertex = Vertex(id: 5, label: "unique")
