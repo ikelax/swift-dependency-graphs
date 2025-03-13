@@ -113,7 +113,8 @@ public struct DependencyGraph<V> where V: Hashable, V: Identifiable, V: Sendable
     }
 
     // The default values in the coalesces are only for the type system.
-    // In a bug-free library, the values should always exist and therefore not be nil.
+    // In a bug-free library, the values should always exist
+    // because the vertex is in the graph and therefore not be nil.
     if isForced {
       return .success(
         RemoveVertexSuccess<V>(
