@@ -93,7 +93,7 @@ public struct DependencyGraph<V> where V: Hashable, V: Identifiable {
   /// only the outgoing edges. For `.backwards` direction, it returns only the incoming edges.
   /// - Parameters:
   ///   - vertex: The vertex for which the neighbours are computed.
-  ///   - direction: The direction of the edges thar are considered.
+  ///   - direction: The direction of the edges that are considered.
   /// - Returns: The neighbours of the vertex if the vertex is in the graph and `nil` otherwise.
   public func neighbours(
     of vertex: V,
