@@ -1,6 +1,6 @@
 /// In comments or descriptions, a vertex with `id` `n` is referred to as `v${n}`.
 /// Just using the `id` or the `label` may be confusing.
-struct Vertex: Identifiable, Hashable {
+struct Vertex: Identifiable, Hashable, Sendable {
   let id: Int
   /// `label` is used for testing how the library handles properties.
   let label: String
