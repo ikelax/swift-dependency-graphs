@@ -64,7 +64,7 @@ public struct DependencyGraph<V> where V: Hashable, V: Identifiable {
     reduceWith reducer: (_ accumulator: T, _ currentVertex: V) -> T,
     withInitialValue accumulator: T
   ) -> T {
-    // neighbours returns nil if the vertex is not in graph.
+    // neighbours returns nil if the vertex is not in the graph.
     // Thus, it is implicitly also checked if the vertex is in the graph.
     guard let neighbours = self.neighbours(of: vertex, in: .forwards)
     else {
