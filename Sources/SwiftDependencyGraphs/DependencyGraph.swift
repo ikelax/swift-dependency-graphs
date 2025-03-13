@@ -64,6 +64,8 @@ public struct DependencyGraph<V> where V: Hashable, V: Identifiable {
     reduceWith reducer: (_ accumulator: T, _ currentVertex: V) -> T,
     withInitialValue accumulator: T
   ) -> T {
+    // neighbours returns nil if the vertex is not in graph.
+    // Thus, it is implicitly also checked if the vertex is in the graph.
     guard let neighbours = self.neighbours(of: vertex, in: .forwards)
     else {
       return accumulator
@@ -91,7 +93,7 @@ public struct DependencyGraph<V> where V: Hashable, V: Identifiable {
   /// - Parameters:
   ///   - vertex: The vertex
   ///   - direction: The direction of the edge
-  /// - Returns: The neighbours of the vertex
+  /// - Returns: The neighbours of the vertex. `nil` indicates that the vertex is not in the graph.
   public func neighbours(
     of vertex: V,
     in direction: TraverseDirection
@@ -103,6 +105,18 @@ public struct DependencyGraph<V> where V: Hashable, V: Identifiable {
         incomingEdges
       }
     return edges[vertex.id]
+  }
+  
+  public func neighbours(of vertex: V) -> OrderedSet<V>? {
+    guard let forwards = neighbours(of: vertex, in: .forwards) else {
+      return neighbours(of: vertex, in: .backwards)
+    }
+    
+    guard let backwards = neighbours(of: vertex, in: .backwards) else {
+      return forwards
+    }
+    
+    return forwards.union(backwards)
   }
 
   /// Removes the edge from the graph.

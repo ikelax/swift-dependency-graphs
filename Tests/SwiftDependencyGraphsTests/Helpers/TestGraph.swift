@@ -185,6 +185,18 @@ extension TestGraph {
       vertex2.id: vertex2,
       vertex3.id: vertex3,
     ]
+    
+    complementOfK3.incomingEdges = [
+      vertex1.id: [],
+      vertex2.id: [],
+      vertex3.id: [],
+    ]
+    
+    complementOfK3.outgoingEdges = [
+      vertex1.id: [],
+      vertex2.id: [],
+      vertex3.id: [],
+    ]
 
     return complementOfK3
   }
