@@ -64,6 +64,8 @@ public struct DependencyGraph<V> where V: Hashable, V: Identifiable {
     reduceWith reducer: (_ accumulator: T, _ currentVertex: V) -> T,
     withInitialValue accumulator: T
   ) -> T {
+    // neighbours returns nil if the vertex is not in the graph.
+    // Thus, it is implicitly also checked if the vertex is in the graph.
     guard let neighbours = self.neighbours(of: vertex, in: .forwards)
     else {
       return accumulator
@@ -87,11 +89,12 @@ public struct DependencyGraph<V> where V: Hashable, V: Identifiable {
     }
   }
 
-  /// A neighbour of a vertex in a graph is a vertex that is connected to it by an edge.
+  /// A neighbour of a vertex is connected to it by an edge. For `.forwards` direction, it returns
+  /// only the outgoing edges. For `.backwards` direction, it returns only the incoming edges.
   /// - Parameters:
-  ///   - vertex: The vertex
-  ///   - direction: The direction of the edge
-  /// - Returns: The neighbours of the vertex
+  ///   - vertex: The vertex for which the neighbours are computed.
+  ///   - direction: The direction of the edges that are considered.
+  /// - Returns: The neighbours of the vertex if the vertex is in the graph and `nil` otherwise.
   public func neighbours(
     of vertex: V,
     in direction: TraverseDirection
@@ -103,6 +106,23 @@ public struct DependencyGraph<V> where V: Hashable, V: Identifiable {
         incomingEdges
       }
     return edges[vertex.id]
+  }
+
+  /// A neighbour of a vertex is connected to it by an edge. It computes the neighbours
+  /// for incoming and outgoing edges.
+  /// - Parameters:
+  ///   - vertex: The vertex for which the neighbours are computed.
+  /// - Returns: The neighbours of the vertex if the vertex is in the graph and `nil` otherwise.
+  public func neighbours(of vertex: V) -> OrderedSet<V>? {
+    guard let forwards = neighbours(of: vertex, in: .forwards) else {
+      return neighbours(of: vertex, in: .backwards)
+    }
+
+    guard let backwards = neighbours(of: vertex, in: .backwards) else {
+      return forwards
+    }
+
+    return forwards.union(backwards)
   }
 
   /// Removes the edge from the graph.
