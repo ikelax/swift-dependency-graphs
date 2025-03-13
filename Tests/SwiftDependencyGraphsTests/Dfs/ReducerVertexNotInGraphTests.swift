@@ -8,13 +8,15 @@ import Testing
     #expect(
       graph.depthFirstSearch(
         startingFrom: vertexNotInGraph, in: .forwards, reduceWith: addReducer, withInitialValue: 0
-      ) == 0)
+      ) == 0
+    )
   }
 
   @Test("it reduces to the accumulator for backwards direction") func backwards() {
     #expect(
       graph.depthFirstSearch(
         startingFrom: vertexNotInGraph, in: .backwards, reduceWith: addReducer, withInitialValue: 0
-      ) == 0)
+      ) == 0
+    )
   }
 }
