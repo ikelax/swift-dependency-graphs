@@ -89,11 +89,12 @@ public struct DependencyGraph<V> where V: Hashable, V: Identifiable {
     }
   }
 
-  /// A neighbour of a vertex in a graph is a vertex that is connected to it by an edge.
+  /// A neighbour of a vertex is connected to it by an edge. For `.forwards` direction, it returns
+  /// only the outgoing edges. For `.backwards` direction, it returns only the incoming edges.
   /// - Parameters:
-  ///   - vertex: The vertex
-  ///   - direction: The direction of the edge
-  /// - Returns: The neighbours of the vertex. `nil` indicates that the vertex is not in the graph.
+  ///   - vertex: The vertex for which the neighbours are computed.
+  ///   - direction: The direction of the edges thar are considered.
+  /// - Returns: The neighbours of the vertex if the vertex is in the graph and `nil` otherwise.
   public func neighbours(
     of vertex: V,
     in direction: TraverseDirection
@@ -107,6 +108,11 @@ public struct DependencyGraph<V> where V: Hashable, V: Identifiable {
     return edges[vertex.id]
   }
 
+  /// A neighbour of a vertex is connected to it by an edge. It computes the neighbours
+  /// for incoming and outgoing edges.
+  /// - Parameters:
+  ///   - vertex: The vertex for which the neighbours are computed.
+  /// - Returns: The neighbours of the vertex if the vertex is in the graph and `nil` otherwise.
   public func neighbours(of vertex: V) -> OrderedSet<V>? {
     guard let forwards = neighbours(of: vertex, in: .forwards) else {
       return neighbours(of: vertex, in: .backwards)
