@@ -3,7 +3,7 @@ import Testing
 @testable import DependencyGraphs
 
 // swiftlint:disable:next line_length
-@Suite("Inserting a new vertex with a unique id and a unique label into the graph") struct InsertVertexSuccessfullyTests {
+@Suite("Inserting a new vertex with a unique ID and a unique label into the graph") struct InsertVertexSuccessfullyTests {
 
   var graph = TestGraph.path()
   let newVertex = Vertex(id: 6)
@@ -39,7 +39,7 @@ import Testing
 }
 
 // swiftlint:disable:next line_length
-@Suite("Inserting a new vertex with a unique id and a duplicate label into the graph") struct InsertVertexDuplicateLabelSuccessfullyTests {
+@Suite("Inserting a new vertex with a unique ID and an existing label into the graph") struct InsertVertexExistingLabelSuccessfullyTests {
 
   var graph = TestGraph.path()
   let newVertex = Vertex(id: 6, label: "5")
@@ -111,7 +111,7 @@ import Testing
 }
 
 // swiftlint:disable:next line_length
-@Suite("Does not insert a vertex with a duplicate id and a duplicate label into the graph and") struct InsertVertexDuplicateIdAndLabelFailedTests {
+@Suite("Inserting a vertex with existing ID and label into the graph,") struct InsertVertexExistingIdAndLabelFailedTests {
 
   var graph = TestGraph.path()
   let newVertex = Vertex(id: 5)
@@ -139,7 +139,7 @@ import Testing
 }
 
 // swiftlint:disable:next line_length
-@Suite("Does not insert a vertex with a duplicate id and a unique label into the graph and") struct InsertVertexDuplicateIdAndUniqueLabelFailedTests {
+@Suite("Inserting a vertex with an existing ID and a unique label into the graph,") struct InsertVertexExistingIdAndUniqueLabelFailedTests {
 
   var graph = TestGraph.path()
   let newVertex = Vertex(id: 5, label: "unique")
