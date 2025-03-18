@@ -2,75 +2,75 @@ import Testing
 
 @testable import DependencyGraphs
 
-// swiftlint:disable:next line_length
-@Suite("Inserting a new vertex with a unique ID and a unique label into the graph") struct InsertVertexSuccessfullyTests {
+@Suite("Inserting a new vertex with a unique ID and") struct InsertVertexSuccessfullyTests {
 
-  var graph = TestGraph.path()
-  let newVertex = Vertex(id: 6)
-  let result: (Bool, Vertex)
+  @Suite("a unique label into the graph") struct UniqueLabelTests {
+    var graph = TestGraph.path()
+    let newVertex = Vertex(id: 6)
+    let result: (Bool, Vertex)
 
-  init() {
-    result = graph.insert(newVertex: newVertex)
+    init() {
+      result = graph.insert(newVertex: newVertex)
+    }
+
+    @Test("returns that the insertion was successful and the inserted vertex") func returnValue() {
+      #expect(result == (true, newVertex))
+    }
+
+    @Test("does not change the incoming edges") func incomingEdges() {
+      #expect(graph.incomingEdges == TestGraph.path().incomingEdges)
+    }
+
+    @Test("does not change the outgoing edges") func outgoingEdges() {
+      #expect(graph.outgoingEdges == TestGraph.path().outgoingEdges)
+    }
+
+    @Test("changes the vertices") func vertices() {
+      #expect(
+        graph.vertices == [
+          vertex1.id: vertex1,
+          vertex2.id: vertex2,
+          vertex3.id: vertex3,
+          vertex4.id: vertex4,
+          vertex5.id: vertex5,
+          newVertex.id: newVertex,
+        ])
+    }
   }
 
-  @Test("returns that the insertion was successful and the inserted vertex") func returnValue() {
-    #expect(result == (true, newVertex))
-  }
+  @Suite("an existing label into the graph") struct ExistingLabelTests {
 
-  @Test("does not change the incoming edges") func incomingEdges() {
-    #expect(graph.incomingEdges == TestGraph.path().incomingEdges)
-  }
+    var graph = TestGraph.path()
+    let newVertex = Vertex(id: 6, label: "5")
+    let result: (Bool, Vertex)
 
-  @Test("does not change the outgoing edges") func outgoingEdges() {
-    #expect(graph.outgoingEdges == TestGraph.path().outgoingEdges)
-  }
+    init() {
+      result = graph.insert(newVertex: newVertex)
+    }
 
-  @Test("changes the vertices") func vertices() {
-    #expect(
-      graph.vertices == [
-        vertex1.id: vertex1,
-        vertex2.id: vertex2,
-        vertex3.id: vertex3,
-        vertex4.id: vertex4,
-        vertex5.id: vertex5,
-        newVertex.id: newVertex,
-      ])
-  }
-}
+    @Test("returns that the insertion was successful and the inserted vertex") func returnValue() {
+      #expect(result == (true, newVertex))
+    }
 
-// swiftlint:disable:next line_length
-@Suite("Inserting a new vertex with a unique ID and an existing label into the graph") struct InsertVertexExistingLabelSuccessfullyTests {
+    @Test("does not change the incoming edges") func incomingEdges() {
+      #expect(graph.incomingEdges == TestGraph.path().incomingEdges)
+    }
 
-  var graph = TestGraph.path()
-  let newVertex = Vertex(id: 6, label: "5")
-  let result: (Bool, Vertex)
+    @Test("does not change the outgoing edges") func outgoingEdges() {
+      #expect(graph.outgoingEdges == TestGraph.path().outgoingEdges)
+    }
 
-  init() {
-    result = graph.insert(newVertex: newVertex)
-  }
-
-  @Test("returns that the insertion was successful and the inserted vertex") func returnValue() {
-    #expect(result == (true, newVertex))
-  }
-
-  @Test("does not change the incoming edges") func incomingEdges() {
-    #expect(graph.incomingEdges == TestGraph.path().incomingEdges)
-  }
-
-  @Test("does not change the outgoing edges") func outgoingEdges() {
-    #expect(graph.outgoingEdges == TestGraph.path().outgoingEdges)
-  }
-
-  @Test("changes the vertices") func vertices() {
-    #expect(
-      graph.vertices == [
-        vertex1.id: vertex1,
-        vertex2.id: vertex2,
-        vertex3.id: vertex3,
-        vertex4.id: vertex4,
-        vertex5.id: vertex5,
-        newVertex.id: newVertex,
-      ])
+    @Test("changes the vertices") func vertices() {
+      #expect(
+        graph.vertices == [
+          vertex1.id: vertex1,
+          vertex2.id: vertex2,
+          vertex3.id: vertex3,
+          vertex4.id: vertex4,
+          vertex5.id: vertex5,
+          newVertex.id: newVertex,
+        ])
+    }
   }
 }
 
@@ -110,58 +110,58 @@ import Testing
   }
 }
 
-// swiftlint:disable:next line_length
-@Suite("Inserting a vertex with existing ID and label into the graph,") struct InsertVertexExistingIdAndLabelFailedTests {
+@Suite("Inserting a vertex with existing ID and") struct InsertVertexFailedTests {
 
-  var graph = TestGraph.path()
-  let newVertex = Vertex(id: 5)
-  let result: (Bool, Vertex)
+  @Suite("a unique label into the graph") struct UniqueLabelTests {
 
-  init() {
-    result = graph.insert(newVertex: newVertex)
+    var graph = TestGraph.path()
+    let newVertex = Vertex(id: 5, label: "unique")
+    let result: (Bool, Vertex)
+
+    init() {
+      result = graph.insert(newVertex: newVertex)
+    }
+
+    @Test("returns that the insertion failed and the existing vertex") func returnValue() {
+      #expect(result == (false, Vertex(id: 5)))
+    }
+
+    @Test("does not change the incoming edges") func incomingEdges() {
+      #expect(graph.incomingEdges == TestGraph.path().incomingEdges)
+    }
+
+    @Test("does not change the outgoing edges") func outgoingEdges() {
+      #expect(graph.outgoingEdges == TestGraph.path().outgoingEdges)
+    }
+
+    @Test("does not change the vertices") func vertices() {
+      #expect(graph.vertices == TestGraph.path().vertices)
+    }
   }
 
-  @Test("returns that the insertion failed and the existing vertex") func returnValue() {
-    #expect(result == (false, newVertex))
-  }
+  @Suite("label into the graph") struct ExistingLabelTests {
+    var graph = TestGraph.path()
+    let newVertex = Vertex(id: 5)
+    let result: (Bool, Vertex)
 
-  @Test("does not change the incoming edges") func incomingEdges() {
-    #expect(graph.incomingEdges == TestGraph.path().incomingEdges)
-  }
+    init() {
+      result = graph.insert(newVertex: newVertex)
+    }
 
-  @Test("does not change the outgoing edges") func outgoingEdges() {
-    #expect(graph.outgoingEdges == TestGraph.path().outgoingEdges)
-  }
+    @Test("returns that the insertion failed and the existing vertex") func returnValue() {
+      #expect(result == (false, newVertex))
+    }
 
-  @Test("does not change the vertices") func vertices() {
-    #expect(graph.vertices == TestGraph.path().vertices)
-  }
-}
+    @Test("does not change the incoming edges") func incomingEdges() {
+      #expect(graph.incomingEdges == TestGraph.path().incomingEdges)
+    }
 
-// swiftlint:disable:next line_length
-@Suite("Inserting a vertex with an existing ID and a unique label into the graph,") struct InsertVertexExistingIdAndUniqueLabelFailedTests {
+    @Test("does not change the outgoing edges") func outgoingEdges() {
+      #expect(graph.outgoingEdges == TestGraph.path().outgoingEdges)
+    }
 
-  var graph = TestGraph.path()
-  let newVertex = Vertex(id: 5, label: "unique")
-  let result: (Bool, Vertex)
-
-  init() {
-    result = graph.insert(newVertex: newVertex)
-  }
-
-  @Test("returns that the insertion failed and the existing vertex") func returnValue() {
-    #expect(result == (false, Vertex(id: 5)))
-  }
-
-  @Test("does not change the incoming edges") func incomingEdges() {
-    #expect(graph.incomingEdges == TestGraph.path().incomingEdges)
-  }
-
-  @Test("does not change the outgoing edges") func outgoingEdges() {
-    #expect(graph.outgoingEdges == TestGraph.path().outgoingEdges)
-  }
-
-  @Test("does not change the vertices") func vertices() {
-    #expect(graph.vertices == TestGraph.path().vertices)
+    @Test("does not change the vertices") func vertices() {
+      #expect(graph.vertices == TestGraph.path().vertices)
+    }
   }
 }
