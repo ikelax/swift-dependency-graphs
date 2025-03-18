@@ -5,6 +5,7 @@ import Testing
 @Suite("Inserting a new vertex with a unique ID and") struct InsertVertexSuccessfullyTests {
 
   @Suite("a unique label into the graph") struct UniqueLabelTests {
+
     var graph = TestGraph.path()
     let newVertex = Vertex(id: 6)
     let result: (Bool, Vertex)
@@ -36,6 +37,7 @@ import Testing
           newVertex.id: newVertex,
         ])
     }
+
   }
 
   @Suite("an existing label into the graph") struct ExistingLabelTests {
@@ -71,7 +73,9 @@ import Testing
           newVertex.id: newVertex,
         ])
     }
+
   }
+
 }
 
 @Suite("Inserting a new vertex twice into the graph") struct InsertVertexTwiceTests {
@@ -108,6 +112,7 @@ import Testing
         newVertex.id: newVertex,
       ])
   }
+
 }
 
 @Suite("Inserting a vertex with existing ID and") struct InsertVertexFailedTests {
@@ -137,9 +142,11 @@ import Testing
     @Test("does not change the vertices") func vertices() {
       #expect(graph.vertices == TestGraph.path().vertices)
     }
+
   }
 
   @Suite("label into the graph") struct ExistingLabelTests {
+
     var graph = TestGraph.path()
     let newVertex = Vertex(id: 5)
     let result: (Bool, Vertex)
@@ -163,5 +170,7 @@ import Testing
     @Test("does not change the vertices") func vertices() {
       #expect(graph.vertices == TestGraph.path().vertices)
     }
+
   }
+
 }
