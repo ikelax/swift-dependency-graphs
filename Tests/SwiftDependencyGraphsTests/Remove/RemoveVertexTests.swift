@@ -17,14 +17,8 @@ import Testing
     result = graph.remove(vertex: vertex)
   }
   
-  @Test("returns that the removal was successful") func success() {
-    #expect(throws: Never.self) {
-      try result.get()
-    }
-  }
-  
-  @Test("returns the removed vertex") func returnsVertex() {
-    #expect(try! result.get().vertex == vertex)
+  @Test("returns that the removal was successful and the removed vertex") func success() {
+    #expect(result == .success(.init(vertex: vertex, outgoingEdges: [], incomingEdges: [])))
   }
 
   @Test("does not change the incoming edges") func incomingEdges() {
@@ -54,23 +48,9 @@ import Testing
     init() {
       result = graph.remove(vertex: vertex, byForce: true)
     }
-
-    @Test("returns that the removal was successful") func success() {
-      #expect(throws: Never.self) {
-        try result.get()
-      }
-    }
     
-    @Test("returns the removed vertex") func returnsVertex() {
-      #expect(try! result.get().vertex == vertex)
-    }
-    
-    @Test("returns no incoming edges because there were not any") func returnsNoIncomingEdges() {
-      #expect(try! result.get().incomingEdges == [])
-    }
-    
-    @Test("returns no outgoing edges because there were not any") func returnsNoOutgoingEdges() {
-      #expect(try! result.get().outgoingEdges == [])
+    @Test("returns that the removal was successful, the removed vertex and no edges because there weren't any") func success() {
+      #expect(result == .success(.init(vertex: vertex, outgoingEdges: [], incomingEdges: [])))
     }
 
     @Test("does not change the incoming edges", .disabled("This is a know bug.")) func incomingEdges() {
@@ -98,23 +78,9 @@ import Testing
     init() {
       result = graph.remove(vertex: vertex, byForce: true)
     }
-
-    @Test("returns that the removal was successful") func success() {
-      #expect(throws: Never.self) {
-        try result.get()
-      }
-    }
     
-    @Test("returns the removed vertex") func returnsVertex() {
-      #expect(try! result.get().vertex == vertex)
-    }
-    
-    @Test("returns the removed incoming edges", .disabled("This is a know bug.")) func returnsIncomingEdges() {
-      #expect(try! result.get().incomingEdges == [])
-    }
-    
-    @Test("returns the removed outgoing edges", .disabled("This is a know bug.")) func returnsOutgoingEdges() {
-      #expect(try! result.get().outgoingEdges == [])
+    @Test("returns that the removal was successful and the removed vertex and edges", .disabled("This is a know bug.")) func success() {
+      #expect(result == .success(.init(vertex: vertex, outgoingEdges: [], incomingEdges: [])))
     }
 
     @Test("changes the incoming edges", .disabled("This is a know bug.")) func incomingEdges() {
