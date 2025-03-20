@@ -108,32 +108,36 @@ public struct DependencyGraph<V> where V: Hashable, V: Identifiable, V: Sendable
   public typealias RemoveVertexResult = Result<RemoveVertexSuccess<V>, RemoveVertexError<V>>
 
   @discardableResult mutating public func remove(vertex: V, byForce isForced: Bool = false) -> RemoveVertexResult {
-    guard let removedVertex = vertices.removeValue(forKey: vertex.id) else {
+    guard vertices[vertex.id] != nil else {
       return .failure(RemoveVertexError.notInGraph(vertex))
     }
 
+    if !isForced {
+      guard let outgoingEdges = outgoingEdges[vertex.id],
+        outgoingEdges.isEmpty,
+        let incomingEdges = incomingEdges[vertex.id],
+        incomingEdges.isEmpty
+      else {
+        return .failure(
+          RemoveVertexError.hasEdgesTo(
+            incoming: incomingEdges[vertex.id] ?? [],
+            outgoing: outgoingEdges[vertex.id] ?? []
+          )
+        )
+      }
+    }
+
+    vertices.removeValue(forKey: vertex.id)
+
     // The default values in the coalesces are only for the type system.
     // In a bug-free library, the values should always exist
-    // because the vertex is in the graph and therefore not be nil.
+    // because the vertex is in the graph and therefore not nil.
     if isForced {
       return .success(
         RemoveVertexSuccess<V>(
-          vertex: removedVertex,
+          vertex: vertex,
           outgoingEdges: outgoingEdges.removeValue(forKey: vertex.id) ?? [],
           incomingEdges: incomingEdges.removeValue(forKey: vertex.id) ?? []
-        )
-      )
-    }
-
-    guard let outgoingEdges = outgoingEdges[vertex.id],
-      outgoingEdges.isEmpty,
-      let incomingEdges = incomingEdges[vertex.id],
-      incomingEdges.isEmpty
-    else {
-      return .failure(
-        RemoveVertexError.hasEdgesTo(
-          incoming: incomingEdges[vertex.id] ?? [],
-          outgoing: outgoingEdges[vertex.id] ?? []
         )
       )
     }
