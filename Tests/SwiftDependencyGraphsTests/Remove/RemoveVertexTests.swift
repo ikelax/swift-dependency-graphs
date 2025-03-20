@@ -1,4 +1,3 @@
-// remove twice
 // try remove vertex not in graph
 // try remove vertex with tail
 // try remove vertex with head
@@ -150,5 +149,37 @@ import Testing
       ]
       )
     }
+  }
+}
+
+@Suite("Removing a vertex twice") struct TryRemoveVertexTwiceTests {
+
+  var graph = TestGraph.oneVertex()
+  let vertex = vertex1
+  let result: DependencyGraph<Vertex>.RemoveVertexResult
+
+  init() {
+    _ = graph.remove(vertex: vertex)
+    result = graph.remove(vertex: vertex)
+  }
+  
+  @Test("returns that the removal failed and the vertex that could not be found") func returnsVertex() {
+    #expect(result == .failure(.notInGraph(vertex)))
+  }
+
+  @Test("does not change the incoming edges") func incomingEdges() {
+    #expect(
+      graph.incomingEdges == TestGraph.oneVertex().incomingEdges
+    )
+  }
+
+  @Test("does not change the outgoing edges") func outgoingEdges() {
+    #expect(
+      graph.outgoingEdges == TestGraph.oneVertex().outgoingEdges
+    )
+  }
+
+  @Test("changes the vertices") func vertices() {
+    #expect(graph.vertices == [:])
   }
 }
