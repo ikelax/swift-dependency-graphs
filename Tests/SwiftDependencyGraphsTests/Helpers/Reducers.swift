@@ -10,6 +10,6 @@ func appendReducer<T>(visited: [T], vertex: T) -> [T] {
 ///   - sum: The original sum value.
 ///   - vertex: The vertex with the `id` to add to `sum`.
 /// - Returns: The new sum which is `sum + vertex.id`.
-func addReducer(sum: Int, vertex: Vertex) -> Int {
+func addVertexId(sum: Int, vertex: Vertex) -> Int {
   return sum + vertex.id
 }

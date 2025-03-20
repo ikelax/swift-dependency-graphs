@@ -4,7 +4,7 @@ import Testing
   let graph = TestGraph.binaryTree()
   let vertexNotInGraph = Vertex(id: -1, label: "not-in-graph")
 
-  @Test("it reduces to the accumulator for forwards direction") func forwards() {
+  @Test("DFS reduces to the accumulator for forwards direction") func forwards() {
     #expect(
       graph.depthFirstSearch(
         startingFrom: vertexNotInGraph, in: .forwards, reduceWith: addReducer, withInitialValue: 0
@@ -12,7 +12,7 @@ import Testing
     )
   }
 
-  @Test("it reduces to the accumulator for backwards direction") func backwards() {
+  @Test("DFS reduces to the accumulator for backwards direction") func backwards() {
     #expect(
       graph.depthFirstSearch(
         startingFrom: vertexNotInGraph, in: .backwards, reduceWith: addReducer, withInitialValue: 0
