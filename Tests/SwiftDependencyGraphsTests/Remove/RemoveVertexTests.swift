@@ -1,7 +1,3 @@
-// try remove vertex with tail
-// try remove vertex with head
-// try remove vertex with tail and head
-
 import Testing
 
 @testable import DependencyGraphs
@@ -165,6 +161,99 @@ import Testing
 
     @Test("returns that the removal failed") func success() {
       #expect(result == .failure(.notInGraph(vertex)))
+    }
+
+    @Test("does not change the incoming edges") func incomingEdges() {
+      #expect(
+        graph.incomingEdges == TestGraph.binaryTree().incomingEdges
+      )
+    }
+
+    @Test("does not change the outgoing edges") func outgoingEdges() {
+      #expect(
+        graph.outgoingEdges == TestGraph.binaryTree().outgoingEdges
+      )
+    }
+
+    @Test("does not change the vertices") func vertices() {
+      #expect(graph.vertices == TestGraph.binaryTree().vertices)
+    }
+  }
+  
+  @Suite("because the vertex has an incoming edge") struct IncomingEdgeTests {
+
+    var graph = TestGraph.binaryTree()
+    let vertex = vertex7
+    let result: DependencyGraph<Vertex>.RemoveVertexResult
+
+    init() {
+      result = graph.remove(vertex: vertex)
+    }
+
+    @Test("returns that the removal failed") func success() {
+      #expect(result == .failure(.hasEdgesTo(incoming: [vertex3], outgoing: [])))
+    }
+
+    @Test("does not change the incoming edges") func incomingEdges() {
+      #expect(
+        graph.incomingEdges == TestGraph.binaryTree().incomingEdges
+      )
+    }
+
+    @Test("does not change the outgoing edges") func outgoingEdges() {
+      #expect(
+        graph.outgoingEdges == TestGraph.binaryTree().outgoingEdges
+      )
+    }
+
+    @Test("does not change the vertices") func vertices() {
+      #expect(graph.vertices == TestGraph.binaryTree().vertices)
+    }
+  }
+  
+  @Suite("because the vertex has outgoing edges") struct OutgoingEdgesTests {
+
+    var graph = TestGraph.binaryTree()
+    let vertex = vertex1
+    let result: DependencyGraph<Vertex>.RemoveVertexResult
+
+    init() {
+      result = graph.remove(vertex: vertex)
+    }
+
+    @Test("returns that the removal failed") func success() {
+      #expect(result == .failure(.hasEdgesTo(incoming: [], outgoing: [vertex2, vertex3])))
+    }
+
+    @Test("does not change the incoming edges") func incomingEdges() {
+      #expect(
+        graph.incomingEdges == TestGraph.binaryTree().incomingEdges
+      )
+    }
+
+    @Test("does not change the outgoing edges") func outgoingEdges() {
+      #expect(
+        graph.outgoingEdges == TestGraph.binaryTree().outgoingEdges
+      )
+    }
+
+    @Test("does not change the vertices") func vertices() {
+      #expect(graph.vertices == TestGraph.binaryTree().vertices)
+    }
+  }
+  
+  @Suite("because the vertex has incoming and outgoing edges") struct IncomingAndOutgoingEdgesTests {
+
+    var graph = TestGraph.binaryTree()
+    let vertex = vertex3
+    let result: DependencyGraph<Vertex>.RemoveVertexResult
+
+    init() {
+      result = graph.remove(vertex: vertex)
+    }
+
+    @Test("returns that the removal failed") func success() {
+      #expect(result == .failure(.hasEdgesTo(incoming: [vertex1], outgoing: [vertex6, vertex7])))
     }
 
     @Test("does not change the incoming edges") func incomingEdges() {
