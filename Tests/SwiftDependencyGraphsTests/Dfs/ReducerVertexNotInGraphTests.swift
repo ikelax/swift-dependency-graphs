@@ -7,7 +7,7 @@ import Testing
   @Test("DFS reduces to the accumulator for forwards direction") func forwards() {
     #expect(
       graph.depthFirstSearch(
-        startingFrom: vertexNotInGraph, in: .forwards, reduceWith: addReducer, withInitialValue: 0
+        startingFrom: vertexNotInGraph, in: .forwards, reduceWith: addVertexId, withInitialValue: 0
       ) == 0
     )
   }
@@ -15,7 +15,7 @@ import Testing
   @Test("DFS reduces to the accumulator for backwards direction") func backwards() {
     #expect(
       graph.depthFirstSearch(
-        startingFrom: vertexNotInGraph, in: .backwards, reduceWith: addReducer, withInitialValue: 0
+        startingFrom: vertexNotInGraph, in: .backwards, reduceWith: addVertexId, withInitialValue: 0
       ) == 0
     )
   }
