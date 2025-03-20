@@ -49,13 +49,21 @@ import Testing
       #expect(result == .success(.init(vertex: vertex, outgoingEdges: [], incomingEdges: [])))
     }
 
-    @Test("does not change the incoming edges", .disabled("This is a know bug.")) func incomingEdges() {
+    @Test(
+      "does not change the incoming edges",
+      .disabled("This is a know bug."),
+      .bug("https://github.com/ikelax/swift-dependency-graphs/issues/38")
+    ) func incomingEdges() {
       #expect(
         graph.incomingEdges == TestGraph.oneVertex().incomingEdges
       )
     }
 
-    @Test("does not change the outgoing edges", .disabled("This is a know bug.")) func outgoingEdges() {
+    @Test(
+      "does not change the outgoing edges",
+      .disabled("This is a know bug."),
+      .bug("https://github.com/ikelax/swift-dependency-graphs/issues/38")
+    ) func outgoingEdges() {
       #expect(
         graph.outgoingEdges == TestGraph.oneVertex().outgoingEdges
       )
@@ -75,12 +83,19 @@ import Testing
       result = graph.remove(vertex: vertex, byForce: true)
     }
 
-    @Test("returns that the removal was successful and the removed vertex and edges", .disabled("This is a know bug."))
-    func success() {
+    @Test(
+      "returns that the removal was successful and the removed vertex and edges",
+      .disabled("This is a know bug."),
+      .bug("https://github.com/ikelax/swift-dependency-graphs/issues/38")
+    ) func success() {
       #expect(result == .success(.init(vertex: vertex, outgoingEdges: [], incomingEdges: [])))
     }
 
-    @Test("changes the incoming edges", .disabled("This is a know bug.")) func incomingEdges() {
+    @Test(
+      "changes the incoming edges",
+      .disabled("This is a know bug."),
+      .bug("https://github.com/ikelax/swift-dependency-graphs/issues/38")
+    ) func incomingEdges() {
       #expect(
         graph.incomingEdges == [
           vertex1.id: [],
@@ -91,7 +106,11 @@ import Testing
       )
     }
 
-    @Test("changes the outgoing edges", .disabled("This is a know bug.")) func outgoingEdges() {
+    @Test(
+      "changes the outgoing edges",
+      .disabled("This is a know bug."),
+      .bug("https://github.com/ikelax/swift-dependency-graphs/issues/38")
+    ) func outgoingEdges() {
       #expect(
         graph.outgoingEdges == [
           vertex1.id: [],
