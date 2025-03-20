@@ -13,6 +13,7 @@ let vertex4 = Vertex(id: 4)
 let vertex5 = Vertex(id: 5)
 let vertex6 = Vertex(id: 6)
 let vertex7 = Vertex(id: 7)
+let vertex8 = Vertex(id: 8)
 
 let emptyVertexList: [Vertex] = []
 
