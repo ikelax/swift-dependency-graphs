@@ -179,7 +179,7 @@ import Testing
       #expect(graph.vertices == TestGraph.binaryTree().vertices)
     }
   }
-  
+
   @Suite("because the vertex has an incoming edge") struct IncomingEdgeTests {
 
     var graph = TestGraph.binaryTree()
@@ -210,7 +210,7 @@ import Testing
       #expect(graph.vertices == TestGraph.binaryTree().vertices)
     }
   }
-  
+
   @Suite("because the vertex has outgoing edges") struct OutgoingEdgesTests {
 
     var graph = TestGraph.binaryTree()
@@ -241,7 +241,7 @@ import Testing
       #expect(graph.vertices == TestGraph.binaryTree().vertices)
     }
   }
-  
+
   @Suite("because the vertex has incoming and outgoing edges") struct IncomingAndOutgoingEdgesTests {
 
     var graph = TestGraph.binaryTree()
