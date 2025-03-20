@@ -151,33 +151,36 @@ import Testing
   }
 }
 
-@Suite("Failing to remove a vertex") struct RemoveVertexNotInGraphFailedTests {
+@Suite("Failing to remove a vertex") struct RemoveVertexFailedTests {
 
-  var graph = TestGraph.binaryTree()
-  let vertex = vertex8
-  let result: DependencyGraph<Vertex>.RemoveVertexResult
+  @Suite("because the vertex was not in the graph") struct NotInGraphTests {
 
-  init() {
-    result = graph.remove(vertex: vertex)
-  }
+    var graph = TestGraph.binaryTree()
+    let vertex = vertex8
+    let result: DependencyGraph<Vertex>.RemoveVertexResult
 
-  @Test("returns that the removal failed because the vertex was not in the graph") func success() {
-    #expect(result == .failure(.notInGraph(vertex)))
-  }
+    init() {
+      result = graph.remove(vertex: vertex)
+    }
 
-  @Test("does not change the incoming edges") func incomingEdges() {
-    #expect(
-      graph.incomingEdges == TestGraph.binaryTree().incomingEdges
-    )
-  }
+    @Test("returns that the removal failed") func success() {
+      #expect(result == .failure(.notInGraph(vertex)))
+    }
 
-  @Test("does not change the outgoing edges") func outgoingEdges() {
-    #expect(
-      graph.outgoingEdges == TestGraph.binaryTree().outgoingEdges
-    )
-  }
+    @Test("does not change the incoming edges") func incomingEdges() {
+      #expect(
+        graph.incomingEdges == TestGraph.binaryTree().incomingEdges
+      )
+    }
 
-  @Test("does not change the vertices") func vertices() {
-    #expect(graph.vertices == TestGraph.binaryTree().vertices)
+    @Test("does not change the outgoing edges") func outgoingEdges() {
+      #expect(
+        graph.outgoingEdges == TestGraph.binaryTree().outgoingEdges
+      )
+    }
+
+    @Test("does not change the vertices") func vertices() {
+      #expect(graph.vertices == TestGraph.binaryTree().vertices)
+    }
   }
 }
