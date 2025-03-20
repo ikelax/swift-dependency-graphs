@@ -15,12 +15,20 @@ public struct DependencyGraph<V> where V: Hashable, V: Identifiable {
   public internal(set) var outgoingEdges: [V.ID: OrderedSet<V>] = [:]
 
   func contains(vertex: V) -> Bool {
-    return contains(vertexWith: { vertexInGraph in vertexInGraph.id == vertex.id })
+    contains(vertexWith: { vertexInGraph in vertexInGraph.id == vertex.id })
   }
 
   /// Returns `true` iff at least one vertex satisfies the `predicate`.
   func contains(vertexWith predicate: (V) -> Bool) -> Bool {
-    return vertices.contains(where: { _, vertex in predicate(vertex) })
+    vertices.contains(where: { _, vertex in predicate(vertex) })
+  }
+
+  func contains(edge: (V, V)) -> Bool {
+    true
+  }
+
+  func contains(edgeWith predicate: (V, V) -> Bool) -> Bool {
+    true
   }
 
   /// Traverses the vertices in the dependency graph and reduces the visited vertices.
