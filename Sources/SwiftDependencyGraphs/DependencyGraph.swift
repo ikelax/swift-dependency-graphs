@@ -110,8 +110,8 @@ public struct DependencyGraph<V> where V: Hashable, V: Identifiable, V: Sendable
   /// Removes a vertex from the graph.
   /// - Parameters:
   ///   - vertex: The removed vertex.
-  ///   - isForced: Whether the vertex is removed by force. Defaults to false. If `false` the vertex is removed
-  ///   iff it does not have edges to other vertices. If `true` the edges to other vertices are also removed.
+  ///   - isForced: `true` to also remove edges to other vertices if there are any.
+  ///   `false` to remove `vertex` iff it has no edges to other vertices.
   /// - Returns: The result of the removal. If successful, the removed vertex and edges are returned.
   /// Otherwise, the reason for the failure is returned.
   @discardableResult mutating public func remove(vertex: V, byForce isForced: Bool = false) -> RemoveVertexResult {
