@@ -23,12 +23,18 @@ public struct DependencyGraph<V> where V: Hashable, V: Identifiable, V: Sendable
     vertices.contains(where: { _, vertex in predicate(vertex) })
   }
 
-  public func contains(edge: (V, V)) -> Bool {
-    true
+  public func contains(edge: (head: V, tail: V)) -> Bool {
+    contains(edgeWith: { (head, tail) in head.id == edge.head.id && tail.id == edge.tail.id })
   }
 
   public func contains(edgeWith predicate: (V, V) -> Bool) -> Bool {
-    true
+    return outgoingEdges.contains(where: { edge in
+      guard let head = vertices[edge.key] else {
+        return false
+      }
+      
+      return edge.value.contains(where: { tail in predicate(head, tail) })
+    })
   }
 
   /// Traverses the vertices in the dependency graph and reduces the visited vertices.
