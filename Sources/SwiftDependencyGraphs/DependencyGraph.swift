@@ -18,7 +18,11 @@ public struct DependencyGraph<V> where V: Hashable, V: Identifiable, V: Sendable
     contains(vertexWith: { vertexInGraph in vertexInGraph.id == vertex.id })
   }
 
-  /// Returns `true` iff at least one vertex satisfies the `predicate`.
+  /// Returns a Boolean value indicating whether the graph contains a vertex
+  /// that satisfies the given predicate.
+  /// - Parameter predicate: A closure that takes a vertex of the graph as its argument
+  /// and returns a Boolean value that indicates whether the passed vertex represents a match.
+  /// - Returns: `true` if the graph contains a vertex that satisfies `predicate`; otherwise `false`.
   public func contains(vertexWith predicate: (V) -> Bool) -> Bool {
     vertices.contains(where: { _, vertex in predicate(vertex) })
   }
@@ -27,6 +31,12 @@ public struct DependencyGraph<V> where V: Hashable, V: Identifiable, V: Sendable
     contains(edgeWith: { (head, tail) in head.id == edge.head.id && tail.id == edge.tail.id })
   }
 
+  /// Returns a Boolean value indicating whether the graph contains an edge
+  /// that satisfies the given predicate.
+  /// - Parameter predicate: A closure that takes an edge represented as a tuple of vertices
+  /// of the graph as its argument and returns a Boolean value that indicates
+  /// whether the passed edge represents a match.
+  /// - Returns: `true` if the graph contains an edge that satisfies `predicate`; otherwise `false`.
   public func contains(edgeWith predicate: (V, V) -> Bool) -> Bool {
     return outgoingEdges.contains(where: { edge in
       guard let head = vertices[edge.key] else {
