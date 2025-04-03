@@ -1,6 +1,5 @@
-import Testing
-
 import DependencyGraphs
+import Testing
 
 @Suite("C4 with vertices v1, v2, v3 and v4") struct C4ContainsVertexTests {
   @Test("contains the vertex v1") func v1() {

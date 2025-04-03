@@ -32,7 +32,7 @@ public struct DependencyGraph<V> where V: Hashable, V: Identifiable, V: Sendable
       guard let head = vertices[edge.key] else {
         return false
       }
-      
+
       return edge.value.contains(where: { tail in predicate(head, tail) })
     })
   }

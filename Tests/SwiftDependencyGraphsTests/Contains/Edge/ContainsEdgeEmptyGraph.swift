@@ -1,6 +1,5 @@
-import Testing
-
 import DependencyGraphs
+import Testing
 
 @Suite("The empty graph") struct ContainsEdgeEmptyGraphTests {
 

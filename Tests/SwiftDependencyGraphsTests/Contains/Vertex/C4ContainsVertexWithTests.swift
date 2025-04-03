@@ -1,6 +1,5 @@
-import Testing
-
 import DependencyGraphs
+import Testing
 
 @Suite("C4 with vertices v1, v2, v3 and v4") struct C4ContainsVertexWithTests {
   @Test("contains a vertex with an odd id") func oddId() {
