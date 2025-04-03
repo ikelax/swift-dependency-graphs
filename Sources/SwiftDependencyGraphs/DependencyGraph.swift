@@ -23,11 +23,11 @@ public struct DependencyGraph<V> where V: Hashable, V: Identifiable, V: Sendable
     vertices.contains(where: { _, vertex in predicate(vertex) })
   }
 
-  func contains(edge: (V, V)) -> Bool {
+  public func contains(edge: (V, V)) -> Bool {
     true
   }
 
-  func contains(edgeWith predicate: (V, V) -> Bool) -> Bool {
+  public func contains(edgeWith predicate: (V, V) -> Bool) -> Bool {
     true
   }
 
