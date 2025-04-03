@@ -26,24 +26,24 @@ import Testing
   }
 
   @Suite("does not contain the edge") struct DoesNotContainTests {
-    @Test("does not contain the edge (v4, v2)") func notV4V2() {
+    @Test("(v4, v2)") func notV4V2() {
       #expect(TestGraph.directedC4().contains(edge: (vertex4, vertex2)) == false)
     }
 
-    @Test("does not contain the edge (v1', v2) with v1' ≠ v1 and v1'.label = v1.label") func notHeadLabel1() {
+    @Test("(v1', v2) with v1' ≠ v1 and v1'.label = v1.label") func notHeadLabel1() {
       // C4 has only vertices with the ids 1, 2, 3 and 4.
       let vertexWithLabel1 = Vertex(id: 5, label: "1")
       #expect(TestGraph.directedC4().contains(edge: (vertexWithLabel1, vertex2)) == false)
     }
 
-    @Test("does not contain the edge (v5, v1') with v1' ≠ v1 and v1'.label = v1.label") func notTailLabel1() {
+    @Test("(v5, v1') with v1' ≠ v1 and v1'.label = v1.label") func notTailLabel1() {
       // C4 has only vertices with the ids 1, 2, 3 and 4.
       let vertexWithLabel1 = Vertex(id: 10, label: "1")
       #expect(TestGraph.directedC4().contains(edge: (vertex5, vertexWithLabel1)) == false)
     }
 
     @Test(
-      "does not contain the edge (v2', v3') with v2' ≠ v2 and v2'.label = v2.label and v3' ≠ v3 and v3'.label = v3.label"
+      "(v2', v3') with v2' ≠ v2 and v2'.label = v2.label and v3' ≠ v3 and v3'.label = v3.label"
     ) func notHeadLabel2TailLabel3() {
       // C4 has only vertices with the ids 1, 2, 3 and 4.
       let vertexWithLabel2 = Vertex(id: 12, label: "2")
