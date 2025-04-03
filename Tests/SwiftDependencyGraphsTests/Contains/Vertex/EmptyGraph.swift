@@ -1,6 +1,6 @@
 import Testing
 
-@testable import DependencyGraphs
+import DependencyGraphs
 
 @Suite("the empty graph") struct ContainsVertexWithTests {
 

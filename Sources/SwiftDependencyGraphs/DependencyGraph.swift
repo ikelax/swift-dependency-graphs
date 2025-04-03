@@ -14,12 +14,12 @@ public struct DependencyGraph<V> where V: Hashable, V: Identifiable, V: Sendable
   /// The dictionary maps the edge `v --> w` as `[v: w]`. `v` is the key and `w` the value.
   public internal(set) var outgoingEdges: [V.ID: OrderedSet<V>] = [:]
 
-  func contains(vertex: V) -> Bool {
+  public func contains(vertex: V) -> Bool {
     contains(vertexWith: { vertexInGraph in vertexInGraph.id == vertex.id })
   }
 
   /// Returns `true` iff at least one vertex satisfies the `predicate`.
-  func contains(vertexWith predicate: (V) -> Bool) -> Bool {
+  public func contains(vertexWith predicate: (V) -> Bool) -> Bool {
     vertices.contains(where: { _, vertex in predicate(vertex) })
   }
 
