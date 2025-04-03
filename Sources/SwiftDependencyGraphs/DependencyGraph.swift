@@ -4,7 +4,7 @@ public struct DependencyGraph<V> where V: Hashable, V: Identifiable, V: Sendable
   typealias Edge = (V, V)
 
   /// The vertices of the dependency graph.
-  public internal(set) var vertices: [V.ID: V] = [:]
+  public internal(set) var vertices: Set<V> = []
 
   // For efficiency, two hashsets are maintained.
 
@@ -20,7 +20,29 @@ public struct DependencyGraph<V> where V: Hashable, V: Identifiable, V: Sendable
 
   /// Returns `true` iff at least one vertex satisfies the `predicate`.
   func contains(vertexWith predicate: (V) -> Bool) -> Bool {
-    return vertices.contains(where: { _, vertex in predicate(vertex) })
+    return vertices.contains(where: { vertex in predicate(vertex) })
+  }
+
+  /// Traverses the vertices in the dependency graph that are reachable from `vertex` and searches for the first
+  /// vertex that satisfies `predicate`.
+  /// - Parameters:
+  ///   - vertex: The vertex the depth-first search starts from
+  ///   - direction: The direction of the depth-first search. It is either `.forwards` and
+  ///   therefore in the direction of the arrows of the edges or `.backwards`.
+  ///   - predicate: The predicate to satisfy
+  ///   - Returns: The first vertex found satisfying `predicate` if such a vertex exists. Otherwise, it returns `nil`.
+  ///   If `vertex` does not exist in the graph or does not have neighbours, it just returns `nil`.
+  public func depthFirstSearch(
+    startingFrom vertex: V,
+    in direction: TraverseDirection,
+    firstWhere predicate: (V) -> Bool
+  ) -> V? {
+    depthFirstSearchImpl(
+      startingFrom: vertex,
+      in: direction,
+      withVisited: [],
+      firstWhere: predicate
+    )
   }
 
   /// Traverses the vertices in the dependency graph and reduces the visited vertices.
@@ -30,7 +52,7 @@ public struct DependencyGraph<V> where V: Hashable, V: Identifiable, V: Sendable
   ///   and therefore in the direction of the arrows of the edges or `.backwards`.
   ///   - reducer: Reduces the visited vertices.
   ///   - accumulator: The accumulator for the reducer.
-  /// - Returns: The accumulated value. If the vertex does not exist in the graph or does not have neighbours,
+  /// - Returns: The accumulated value. If `vertex` does not exist in the graph or does not have neighbours,
   /// it just returns the `accumulator`.
   public func depthFirstSearch<T>(
     startingFrom vertex: V,
@@ -47,7 +69,53 @@ public struct DependencyGraph<V> where V: Hashable, V: Identifiable, V: Sendable
     )
   }
 
-  /// Traverses the vertices in the dependency graph and reduces the visited vertices.
+  /// Traverses the vertices in the dependency graph that are reachable from `vertex` and searches for the first
+  /// vertex that satisfies `predicate`.
+  /// - Parameters:
+  ///   - vertex: The vertex the depth-first search starts from
+  ///   - direction: The direction of the depth-first search. It is either `.forwards` and
+  ///   therefore in the direction of the arrows of the edges or `.backwards`.
+  ///   - visited: Tracks vertices that were already visited by the depth-first search
+  ///   - predicate: The predicate to satisfy
+  ///   - Returns: The first vertex found satisfying `predicate` if such a vertex exists. Otherwise, it returns `nil`.
+  ///   If `vertex` does not exist in the graph or does not have neighbours, it just returns `nil`.
+  internal func depthFirstSearchImpl(
+    startingFrom vertex: V,
+    in direction: TraverseDirection,
+    withVisited visited: Set<V>,
+    firstWhere predicate: (V) -> Bool
+  ) -> V? {
+    guard let neighbours = self.neighbours(of: vertex, in: direction)
+    else {
+      return nil
+    }
+
+    if visited.contains(vertex) {
+      return nil
+    }
+
+    if predicate(vertex) {
+      return vertex
+    }
+
+    var visited = visited
+    visited.insert(vertex)
+
+    for neighbour in neighbours {
+      if let vertex = depthFirstSearchImpl(
+        startingFrom: neighbour,
+        in: direction,
+        withVisited: visited,
+        firstWhere: predicate
+      ) {
+        return vertex
+      }
+    }
+
+    return nil
+  }
+
+  /// Traverses the vertices in the dependency graph that are reachable from `vertex` and reduces the visited vertices.
   /// - Parameters:
   ///   - vertex: The vertex the depth-first search starts from
   ///   - direction: The direction of the depth-first search. It is either `.forwards` and
@@ -64,7 +132,7 @@ public struct DependencyGraph<V> where V: Hashable, V: Identifiable, V: Sendable
     reduceWith reducer: (_ accumulator: T, _ currentVertex: V) -> T,
     withInitialValue accumulator: T
   ) -> T {
-    guard let neighbours = self.neighbours(of: vertex, in: .forwards)
+    guard let neighbours = self.neighbours(of: vertex, in: direction)
     else {
       return accumulator
     }
@@ -159,8 +227,8 @@ public struct DependencyGraph<V> where V: Hashable, V: Identifiable, V: Sendable
     let head = edge.0
     let tail = edge.1
 
-    guard vertices[head.id] != nil,
-      vertices[tail.id] != nil,
+    guard vertices.contains(where: { vertex in vertex.id == head.id }),
+      vertices.contains(where: { vertex in vertex.id == tail.id }),
       // The type ensures that this is true if and only if
       // incomingEdges[tail.id]?.contains(head) is also true.
       let isEdgeInGraph = outgoingEdges[head.id]?.contains(tail),
@@ -173,5 +241,29 @@ public struct DependencyGraph<V> where V: Hashable, V: Identifiable, V: Sendable
     outgoingEdges[head.id]?.remove(tail)
 
     return edge
+  }
+
+  /// Checks if the dependency graph with `edge` is cyclic.
+  /// - Parameter edge: The edge to add to the dependency graph
+  /// - Returns: True iff the dependency graph with `edge` is cyclic.
+  internal func isCyclicWith(edge: (V, V)) -> Bool {
+    var temporaryDependencyGraph = self
+    let headVertex = edge.0
+    let tailVertex = edge.1
+    temporaryDependencyGraph.vertices.insert(headVertex)
+    temporaryDependencyGraph.vertices.insert(tailVertex)
+    _ = temporaryDependencyGraph.incomingEdges[edge.1.id]?.unordered.insert(edge.0)
+    _ = temporaryDependencyGraph.outgoingEdges[edge.0.id]?.unordered.insert(edge.1)
+
+    // A dependency graph G is acyclic. If G with the edge e is cyclic,
+    // the cycle in G must contain e. Otherwise, G would be cyclic.
+    // Hence, it suffices to check if it is possible to reach headVertex
+    // from tailVertex. If there such a path P, we have found a cycle by
+    // combining P with e.
+    return temporaryDependencyGraph.depthFirstSearchImpl(
+      startingFrom: tailVertex, in: .forwards, withVisited: [],
+      firstWhere: { vertex in
+        vertex.id == headVertex.id
+      }) != nil
   }
 }
