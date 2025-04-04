@@ -114,7 +114,9 @@ public struct DependencyGraph<V> where V: Hashable, V: Identifiable, V: Sendable
   ///   `false` to remove `vertex` iff it has no edges to other vertices.
   /// - Returns: The result of the removal. If successful, the removed vertex and edges are returned.
   /// Otherwise, the reason for the failure is returned.
-  @discardableResult mutating public func remove(vertex: V, byForce isForced: Bool = false) -> RemoveVertexResult {
+  @discardableResult mutating public func remove(
+    vertex: V, byForce isForced: Bool = false
+  ) -> RemoveVertexResult {
     guard vertices[vertex.id] != nil else {
       return .failure(RemoveVertexError.notInGraph(vertex))
     }
