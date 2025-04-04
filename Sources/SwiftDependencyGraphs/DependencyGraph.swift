@@ -114,7 +114,9 @@ public struct DependencyGraph<V> where V: Hashable, V: Identifiable, V: Sendable
   ///   `false` to remove `vertex` iff it has no edges to other vertices.
   /// - Returns: The result of the removal. If successful, the removed vertex and edges are returned.
   /// Otherwise, the reason for the failure is returned.
-  @discardableResult mutating public func remove(vertex: V, byForce isForced: Bool = false) -> RemoveVertexResult {
+  @discardableResult mutating public func remove(
+    vertex: V, byForce isForced: Bool = false
+  ) -> RemoveVertexResult {
     guard vertices[vertex.id] != nil else {
       return .failure(RemoveVertexError.notInGraph(vertex))
     }
@@ -173,5 +175,23 @@ public struct DependencyGraph<V> where V: Hashable, V: Identifiable, V: Sendable
     outgoingEdges[head.id]?.remove(tail)
 
     return edge
+  }
+
+  /// Inserts the given vertex into the graph if it is not already present.
+  /// Two vertices are equal iff their ids are equal.
+  /// - Parameter newVertex: A vertex to insert into the graph.
+  /// - Returns: `(true, newVertex)` if `newVertex` was not contained in the graph.
+  /// If a vertex equal to `newVertex` was already contained in the graph, the method returns `(false, oldVertex)`,
+  /// where `oldVertex` is the vertex that was equal to `newVertex`. In some cases, `oldVertex` may be
+  /// distinguishable from `newVertex` by identity comparison or some other means.
+  @discardableResult mutating public func insert(newVertex: V) -> (
+    inserted: Bool, vertexAfterInsert: V
+  ) {
+    if let oldVertex = vertices[newVertex.id] {
+      return (false, oldVertex)
+    }
+
+    vertices[newVertex.id] = newVertex
+    return (true, newVertex)
   }
 }
