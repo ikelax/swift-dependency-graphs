@@ -18,7 +18,9 @@ public struct DependencyGraph<V> where V: Hashable, V: Identifiable, V: Sendable
   /// - Parameter vertex: The vertex to contain.
   /// - Returns: `true` if the graph contains the given vertex; otherwise `false`.
   public func contains(vertex: V) -> Bool {
-    contains(vertexWith: { vertexInGraph in vertexInGraph.id == vertex.id })
+    // vertices maps a the ID of a vertex to the vertex.
+    // So, a valid vertex ID will never map to nil.
+    vertices[vertex.id] != nil
   }
 
   /// Returns a Boolean value indicating whether the graph contains a vertex
