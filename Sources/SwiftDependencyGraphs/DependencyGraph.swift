@@ -36,7 +36,11 @@ public struct DependencyGraph<V> where V: Hashable, V: Identifiable, V: Sendable
   /// - Parameter edge: The edge to contain.
   /// - Returns: `true` if the graph contains the given edge; otherwise `false`.
   public func contains(edge: (head: V, tail: V)) -> Bool {
-    contains(edgeWith: { (head, tail) in head.id == edge.head.id && tail.id == edge.tail.id })
+    guard let edges = outgoingEdges[edge.head.id] else {
+      return false
+    }
+    
+    return edges.contains(where: { tail in tail.id == edge.tail.id })
   }
 
   /// Returns a Boolean value indicating whether the graph contains an edge
