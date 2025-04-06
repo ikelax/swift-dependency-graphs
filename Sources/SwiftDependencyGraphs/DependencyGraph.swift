@@ -11,7 +11,7 @@ public struct DependencyGraph<V> where V: Hashable, V: Identifiable, V: Sendable
   /// The dictionary maps the edge `v --> w` as `[w.id: v]`.
   public internal(set) var incomingEdges: [V.ID: OrderedSet<V>] = [:]
 
-  /// The dictionary maps the edge `v --> w` as `[v.id: w]`. 
+  /// The dictionary maps the edge `v --> w` as `[v.id: w]`.
   public internal(set) var outgoingEdges: [V.ID: OrderedSet<V>] = [:]
 
   /// Returns a Boolean value indicating whether the graph contains the given vertex.
@@ -39,7 +39,7 @@ public struct DependencyGraph<V> where V: Hashable, V: Identifiable, V: Sendable
     guard let edges = outgoingEdges[edge.head.id] else {
       return false
     }
-    
+
     return edges.contains(where: { tail in tail.id == edge.tail.id })
   }
 
