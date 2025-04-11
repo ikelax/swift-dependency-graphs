@@ -264,8 +264,7 @@ import Testing
     }
   }
 
-  @Suite("because the vertex has incoming and outgoing edges") struct IncomingAndOutgoingEdgesTests
-  {
+  @Suite("since the vertex has incoming and outgoing edges") struct IncomingAndOutgoingEdgesTests {
 
     var graph = TestGraph.binaryTree()
     let vertex = vertex3
