@@ -200,4 +200,22 @@ extension TestGraph {
 
     return complementOfK3
   }
+
+  static func oneVertex() -> TestGraph {
+    var graph = TestGraph()
+
+    graph.vertices = [
+      vertex1.id: vertex1
+    ]
+
+    graph.incomingEdges = [
+      vertex1.id: []
+    ]
+
+    graph.outgoingEdges = [
+      vertex1.id: []
+    ]
+
+    return graph
+  }
 }

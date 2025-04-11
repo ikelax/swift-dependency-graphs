@@ -1,6 +1,6 @@
 import OrderedCollections
 
-public struct DependencyGraph<V> where V: Hashable, V: Identifiable {
+public struct DependencyGraph<V> where V: Hashable, V: Identifiable, V: Sendable {
   typealias Edge = (V, V)
 
   /// The vertices of the dependency graph.
@@ -120,16 +120,63 @@ public struct DependencyGraph<V> where V: Hashable, V: Identifiable {
   /// - Returns: The neighbours of the vertex if the vertex is in the graph and `nil` otherwise.
   public func neighbours(of vertex: V) -> OrderedSet<V>? {
     let backwards = neighbours(of: vertex, in: .backwards)
-
+    
     guard let forwards = neighbours(of: vertex, in: .forwards) else {
       return backwards
     }
-
+    
     guard let backwards else {
       return forwards
     }
-
+    
     return forwards.union(backwards)
+  }
+
+  public typealias RemoveVertexResult = Result<RemoveVertexSuccess<V>, RemoveVertexError<V>>
+
+  /// Removes a vertex from the graph.
+  /// - Parameters:
+  ///   - vertex: The removed vertex.
+  ///   - isForced: `true` to also remove edges to other vertices if there are any.
+  ///   `false` to remove `vertex` iff it has no edges to other vertices.
+  /// - Returns: The result of the removal. If successful, the removed vertex and edges are returned.
+  /// Otherwise, the reason for the failure is returned.
+  @discardableResult mutating public func remove(vertex: V, byForce isForced: Bool = false) -> RemoveVertexResult {
+    guard vertices[vertex.id] != nil else {
+      return .failure(RemoveVertexError.notInGraph(vertex))
+    }
+
+    if !isForced {
+      guard let outgoingEdges = outgoingEdges[vertex.id],
+        outgoingEdges.isEmpty,
+        let incomingEdges = incomingEdges[vertex.id],
+        incomingEdges.isEmpty
+      else {
+        return .failure(
+          RemoveVertexError.hasEdgesTo(
+            incoming: incomingEdges[vertex.id] ?? [],
+            outgoing: outgoingEdges[vertex.id] ?? []
+          )
+        )
+      }
+    }
+
+    vertices.removeValue(forKey: vertex.id)
+
+    // The default values in the coalesces are only for the type system.
+    // In a bug-free library, the values should always exist
+    // because the vertex is in the graph and therefore not nil.
+    if isForced {
+      return .success(
+        RemoveVertexSuccess<V>(
+          vertex: vertex,
+          outgoingEdges: outgoingEdges.removeValue(forKey: vertex.id) ?? [],
+          incomingEdges: incomingEdges.removeValue(forKey: vertex.id) ?? []
+        )
+      )
+    }
+
+    return .success(RemoveVertexSuccess(vertex: vertex, outgoingEdges: [], incomingEdges: []))
   }
 
   /// Removes the edge from the graph.
