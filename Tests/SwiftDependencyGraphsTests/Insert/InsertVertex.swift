@@ -127,7 +127,7 @@ import Testing
       result = graph.insert(newVertex: newVertex)
     }
 
-    @Test("returns that the insertion failed and the existing vertex") func returnValue() {
+    @Test("returns that the insertion failed and the existing vertex with a different label") func returnValue() {
       #expect(result == (false, Vertex(id: 5)))
     }
 

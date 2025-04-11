@@ -178,12 +178,13 @@ public struct DependencyGraph<V> where V: Hashable, V: Identifiable, V: Sendable
   }
 
   /// Inserts the given vertex into the graph if it is not already present.
-  /// Two vertices are equal iff their ids are equal.
+  /// Does not update existing vertices in the graph, identified by `V.id`,
+  /// even if `newVertex`'s other properties are different.
+  ///
   /// - Parameter newVertex: A vertex to insert into the graph.
   /// - Returns: `(true, newVertex)` if `newVertex` was not contained in the graph.
-  /// If a vertex equal to `newVertex` was already contained in the graph, the method returns `(false, oldVertex)`,
-  /// where `oldVertex` is the vertex that was equal to `newVertex`. In some cases, `oldVertex` may be
-  /// distinguishable from `newVertex` by identity comparison or some other means.
+  /// If a vertex identical to `newVertex` was already contained in the graph, the method returns `(false, oldVertex)`,
+  /// where `oldVertex` is the vertex that was identical to `newVertex`.
   @discardableResult mutating public func insert(newVertex: V) -> (
     inserted: Bool, vertexAfterInsert: V
   ) {
