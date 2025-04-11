@@ -44,7 +44,9 @@ import Testing
       result = graph.remove(vertex: vertex, byForce: true)
     }
 
-    @Test("returns that the removal was successful, the removed vertex and no edges because there weren't any")
+    @Test(
+      "returns that the removal was successful, the removed vertex and no edges because there weren't any"
+    )
     func success() {
       #expect(result == .success(.init(vertex: vertex, outgoingEdges: [], incomingEdges: [])))
     }
@@ -145,7 +147,8 @@ import Testing
     result = graph.remove(vertex: vertex)
   }
 
-  @Test("returns that the removal failed and the vertex that could not be found") func returnsVertex() {
+  @Test("returns that the removal failed and the vertex that could not be found")
+  func returnsVertex() {
     #expect(result == .failure(.notInGraph(vertex)))
   }
 
@@ -261,7 +264,8 @@ import Testing
     }
   }
 
-  @Suite("because the vertex has incoming and outgoing edges") struct IncomingAndOutgoingEdgesTests {
+  @Suite("because the vertex has incoming and outgoing edges") struct IncomingAndOutgoingEdgesTests
+  {
 
     var graph = TestGraph.binaryTree()
     let vertex = vertex3
