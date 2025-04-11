@@ -67,7 +67,7 @@ public struct DependencyGraph<V> where V: Hashable, V: Identifiable, V: Sendable
     guard let neighbours = self.neighbours(of: vertex, in: .forwards)
     else {
       assert(
-        self.neighbours(of: vertex, in: .forwards) == nil,
+        vertices[vertex.id] == nil,
         """
         neighbours returns nil if the vertex is not in the graph.
         Thus, it is implicitly also checked if the vertex is in the graph.
