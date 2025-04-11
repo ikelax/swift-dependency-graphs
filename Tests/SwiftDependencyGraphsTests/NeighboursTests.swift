@@ -17,7 +17,7 @@ import Testing
       #expect(graph.neighbours(of: vertexNotInGraph) == nil)
     }
   }
-  
+
   @Suite("If the vertex is in the graph") struct VertexInGraphTests {
     let graph = TestGraph.binaryTree()
 
