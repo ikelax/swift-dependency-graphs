@@ -120,15 +120,15 @@ public struct DependencyGraph<V> where V: Hashable, V: Identifiable, V: Sendable
   /// - Returns: The neighbours of the vertex if the vertex is in the graph and `nil` otherwise.
   public func neighbours(of vertex: V) -> OrderedSet<V>? {
     let backwards = neighbours(of: vertex, in: .backwards)
-    
+
     guard let forwards = neighbours(of: vertex, in: .forwards) else {
       return backwards
     }
-    
+
     guard let backwards else {
       return forwards
     }
-    
+
     return forwards.union(backwards)
   }
 
