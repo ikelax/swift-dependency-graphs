@@ -1,8 +1,7 @@
+import DependencyGraphs
 import Testing
 
-@testable import DependencyGraphs
-
-@Suite("the empty graph") struct ContainsVertexWithTests {
+@Suite("The empty graph") struct ContainsVertexWithTests {
 
   @Test("does not contain the vertex v") func notVertexV() {
     #expect(TestGraph.empty.contains(vertex: vertex1) == false)
