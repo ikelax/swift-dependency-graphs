@@ -8,10 +8,12 @@ public struct DependencyGraph<V> where V: Hashable, V: Identifiable, V: Sendable
 
   // For efficiency, two hashsets are maintained.
 
-  /// The dictionary maps the edge `v --> w` as `[w.id: v]`.
+  /// The dictionary maps edges of the form `head --> tail` as `[tail.id: Heads]`
+  /// where `Heads` is the set of heads for this specific tail.
   public internal(set) var incomingEdges: [V.ID: OrderedSet<V>] = [:]
 
-  /// The dictionary maps the edge `v --> w` as `[v.id: w]`.
+  /// The dictionary maps edges of the form `head --> tail` as `[head.id: Tails]`
+  /// where `Tails` is the set of tails for this specific head.
   public internal(set) var outgoingEdges: [V.ID: OrderedSet<V>] = [:]
 
   /// Returns a Boolean value indicating whether the graph contains the given vertex.
