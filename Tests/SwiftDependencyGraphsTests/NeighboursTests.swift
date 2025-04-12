@@ -30,7 +30,8 @@ import Testing
     }
 
     @Test("returns its neighbours for both directions") func both() {
-      #expect(graph.neighbours(of: vertex3).unsafelyUnwrapped.isEqualSet(to: [vertex1, vertex6, vertex7]))
+      #expect(
+        graph.neighbours(of: vertex3).unsafelyUnwrapped.isEqualSet(to: [vertex1, vertex6, vertex7]))
     }
   }
 
