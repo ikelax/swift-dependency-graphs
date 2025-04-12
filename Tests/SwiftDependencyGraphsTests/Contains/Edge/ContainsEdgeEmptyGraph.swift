@@ -9,7 +9,7 @@ import Testing
 
   @Test("does not contain an edge where the sum of the ids of its vertices is 5") func sum5() {
     #expect(
-      TestGraph.empty.contains(edgeWith: { (head, tail) in head.id + tail.id == 5
+      TestGraph.empty.containsEdge(with: { (head, tail) in head.id + tail.id == 5
       }) == false
     )
   }
@@ -17,7 +17,7 @@ import Testing
   @Test("does not contain an edge where the label of the head that starts with h")
   func notHeadLabelh() {
     #expect(
-      TestGraph.empty.contains(edgeWith: { (head, _) in
+      TestGraph.empty.containsEdge(with: { (head, _) in
         head.label.starts(with: "h")
       }) == false
     )
