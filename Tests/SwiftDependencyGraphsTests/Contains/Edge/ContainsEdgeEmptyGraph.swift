@@ -14,7 +14,8 @@ import Testing
     )
   }
 
-  @Test("does not contain an edge where the label of the head that starts with h") func notHeadLabelh() {
+  @Test("does not contain an edge where the label of the head that starts with h")
+  func notHeadLabelh() {
     #expect(
       TestGraph.empty.contains(edgeWith: { (head, _) in
         head.label.starts(with: "h")

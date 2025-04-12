@@ -18,7 +18,8 @@ import Testing
       #expect(TestGraph.directedC4().contains(edge: (vertex3, vertexWithId4)) == true)
     }
 
-    @Test("(v1', v2') with v1' ≠ v1 and v1'.id = v1.id and v2' ≠ v2 and v2'.id = v2.id") func headId1AndTailId2() {
+    @Test("(v1', v2') with v1' ≠ v1 and v1'.id = v1.id and v2' ≠ v2 and v2'.id = v2.id")
+    func headId1AndTailId2() {
       let vertexWithId1 = Vertex(id: vertex1.id, label: "not 1")
       let vertexWithId2 = Vertex(id: vertex2.id, label: "not 2")
       #expect(TestGraph.directedC4().contains(edge: (vertexWithId1, vertexWithId2)) == true)
