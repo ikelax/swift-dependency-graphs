@@ -183,7 +183,7 @@ public struct DependencyGraph<V> where V: Hashable, V: Identifiable, V: Sendable
     vertex: V, byForce isForced: Bool = false
   ) -> RemoveVertexResult {
     guard vertices[vertex.id] != nil else {
-      return .failure(RemoveVertexError.notInGraph(vertex))
+      return .failure(.notInGraph(vertex))
     }
 
     if !isForced {
@@ -193,7 +193,7 @@ public struct DependencyGraph<V> where V: Hashable, V: Identifiable, V: Sendable
         incomingEdges.isEmpty
       else {
         return .failure(
-          RemoveVertexError.hasEdgesTo(
+          .hasEdgesTo(
             incoming: incomingEdges[vertex.id] ?? [],
             outgoing: outgoingEdges[vertex.id] ?? []
           )
@@ -208,7 +208,7 @@ public struct DependencyGraph<V> where V: Hashable, V: Identifiable, V: Sendable
     // because the vertex is in the graph and therefore not nil.
     if isForced {
       return .success(
-        RemoveVertexSuccess<V>(
+        .init(
           vertex: vertex,
           outgoingEdges: outgoingEdges.removeValue(forKey: vertex.id) ?? [],
           incomingEdges: incomingEdges.removeValue(forKey: vertex.id) ?? []
@@ -216,7 +216,7 @@ public struct DependencyGraph<V> where V: Hashable, V: Identifiable, V: Sendable
       )
     }
 
-    return .success(RemoveVertexSuccess(vertex: vertex, outgoingEdges: [], incomingEdges: []))
+    return .success(.init(vertex: vertex, outgoingEdges: [], incomingEdges: []))
   }
 
   /// Removes the edge from the graph.
