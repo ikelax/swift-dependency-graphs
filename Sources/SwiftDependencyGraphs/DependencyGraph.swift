@@ -8,19 +8,57 @@ public struct DependencyGraph<V> where V: Hashable, V: Identifiable, V: Sendable
 
   // For efficiency, two hashsets are maintained.
 
-  /// The dictionary maps the edge `v --> w` as `[w: v]`. `w` is the key and `v` the value.
+  /// The dictionary maps edges of the form `head --> tail` as `[tail.id: Heads]`
+  /// where `Heads` is the set of heads for this specific tail.
   public internal(set) var incomingEdges: [V.ID: OrderedSet<V>] = [:]
 
-  /// The dictionary maps the edge `v --> w` as `[v: w]`. `v` is the key and `w` the value.
+  /// The dictionary maps edges of the form `head --> tail` as `[head.id: Tails]`
+  /// where `Tails` is the set of tails for this specific head.
   public internal(set) var outgoingEdges: [V.ID: OrderedSet<V>] = [:]
 
-  func contains(vertex: V) -> Bool {
-    return contains(vertexWith: { vertexInGraph in vertexInGraph.id == vertex.id })
+  /// Returns a Boolean value indicating whether the graph contains the given vertex.
+  /// - Parameter vertex: The vertex to contain.
+  /// - Returns: `true` if the graph contains the given vertex; otherwise `false`.
+  public func contains(vertex: V) -> Bool {
+    // vertices maps a the ID of a vertex to the vertex.
+    // So, a valid vertex ID will never map to nil.
+    vertices[vertex.id] != nil
   }
 
-  /// Returns `true` iff at least one vertex satisfies the `predicate`.
-  func contains(vertexWith predicate: (V) -> Bool) -> Bool {
-    return vertices.contains(where: { _, vertex in predicate(vertex) })
+  /// Returns a Boolean value indicating whether the graph contains a vertex
+  /// that satisfies the given predicate.
+  /// - Parameter predicate: A closure that takes a vertex of the graph as its argument
+  /// and returns a Boolean value that indicates whether the passed vertex represents a match.
+  /// - Returns: `true` if the graph contains a vertex that satisfies `predicate`; otherwise `false`.
+  public func containsVertex(with predicate: (V) -> Bool) -> Bool {
+    vertices.contains(where: { _, vertex in predicate(vertex) })
+  }
+
+  /// Returns a Boolean value indicating whether the graph contains the given edge.
+  /// - Parameter edge: The edge to contain.
+  /// - Returns: `true` if the graph contains the given edge; otherwise `false`.
+  public func contains(edge: (head: V, tail: V)) -> Bool {
+    guard let edges = outgoingEdges[edge.head.id] else {
+      return false
+    }
+
+    return edges.contains(where: { tail in tail.id == edge.tail.id })
+  }
+
+  /// Returns a Boolean value indicating whether the graph contains an edge
+  /// that satisfies the given predicate.
+  /// - Parameter predicate: A closure that takes an edge represented as a tuple of vertices
+  /// of the graph as its argument and returns a Boolean value that indicates
+  /// whether the passed edge represents a match.
+  /// - Returns: `true` if the graph contains an edge that satisfies `predicate`; otherwise `false`.
+  public func containsEdge(with predicate: (V, V) -> Bool) -> Bool {
+    return outgoingEdges.contains(where: { edge in
+      guard let head = vertices[edge.key] else {
+        return false
+      }
+
+      return edge.value.contains(where: { tail in predicate(head, tail) })
+    })
   }
 
   /// Traverses the vertices in the dependency graph and reduces the visited vertices.
