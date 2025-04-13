@@ -104,6 +104,13 @@ public struct DependencyGraph<V> where V: Hashable, V: Identifiable, V: Sendable
   ) -> T {
     guard let neighbours = self.neighbours(of: vertex, in: .forwards)
     else {
+      assert(
+        vertices[vertex.id] == nil,
+        """
+        neighbours returns nil if the vertex is not in the graph.
+        Thus, it is implicitly also checked if the vertex is in the graph.
+        """
+      )
       return accumulator
     }
 
@@ -125,11 +132,12 @@ public struct DependencyGraph<V> where V: Hashable, V: Identifiable, V: Sendable
     }
   }
 
-  /// A neighbour of a vertex in a graph is a vertex that is connected to it by an edge.
+  /// A neighbour of a vertex is connected to it by an edge. For `.forwards` direction, it returns
+  /// only the outgoing edges. For `.backwards` direction, it returns only the incoming edges.
   /// - Parameters:
-  ///   - vertex: The vertex
-  ///   - direction: The direction of the edge
-  /// - Returns: The neighbours of the vertex
+  ///   - vertex: The vertex of which all neighbours are returned.
+  ///   - direction: The direction of edges to consider, ignoring edges of other directions.
+  /// - Returns: All neighbours of `vertex` with an edge in `direction`, or `nil` if the vertex is not in the graph.
   public func neighbours(
     of vertex: V,
     in direction: TraverseDirection
@@ -141,6 +149,25 @@ public struct DependencyGraph<V> where V: Hashable, V: Identifiable, V: Sendable
         incomingEdges
       }
     return edges[vertex.id]
+  }
+
+  /// A neighbour of a vertex is connected to it by an edge. It computes the neighbours
+  /// for incoming and outgoing edges.
+  /// - Parameters:
+  ///   - vertex: The vertex of which all neighbours are returned.
+  /// - Returns: The neighbours of the vertex if the vertex is in the graph and `nil` otherwise.
+  public func neighbours(of vertex: V) -> OrderedSet<V>? {
+    let backwards = neighbours(of: vertex, in: .backwards)
+
+    guard let forwards = neighbours(of: vertex, in: .forwards) else {
+      return backwards
+    }
+
+    guard let backwards else {
+      return forwards
+    }
+
+    return forwards.union(backwards)
   }
 
   public typealias RemoveVertexResult = Result<RemoveVertexSuccess<V>, RemoveVertexError<V>>
@@ -156,7 +183,7 @@ public struct DependencyGraph<V> where V: Hashable, V: Identifiable, V: Sendable
     vertex: V, byForce isForced: Bool = false
   ) -> RemoveVertexResult {
     guard vertices[vertex.id] != nil else {
-      return .failure(RemoveVertexError.notInGraph(vertex))
+      return .failure(.notInGraph(vertex))
     }
 
     if !isForced {
@@ -166,7 +193,7 @@ public struct DependencyGraph<V> where V: Hashable, V: Identifiable, V: Sendable
         incomingEdges.isEmpty
       else {
         return .failure(
-          RemoveVertexError.hasEdgesTo(
+          .hasEdgesTo(
             incoming: incomingEdges[vertex.id] ?? [],
             outgoing: outgoingEdges[vertex.id] ?? []
           )
@@ -181,7 +208,7 @@ public struct DependencyGraph<V> where V: Hashable, V: Identifiable, V: Sendable
     // because the vertex is in the graph and therefore not nil.
     if isForced {
       return .success(
-        RemoveVertexSuccess<V>(
+        .init(
           vertex: vertex,
           outgoingEdges: outgoingEdges.removeValue(forKey: vertex.id) ?? [],
           incomingEdges: incomingEdges.removeValue(forKey: vertex.id) ?? []
@@ -189,7 +216,7 @@ public struct DependencyGraph<V> where V: Hashable, V: Identifiable, V: Sendable
       )
     }
 
-    return .success(RemoveVertexSuccess(vertex: vertex, outgoingEdges: [], incomingEdges: []))
+    return .success(.init(vertex: vertex, outgoingEdges: [], incomingEdges: []))
   }
 
   /// Removes the edge from the graph.
