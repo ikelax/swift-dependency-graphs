@@ -1,5 +1,5 @@
 {
-  "originHash" : "034e385c751c6af014263c63cdc6988fd6cd19e2b0a2e1bdd822f496ff903ad9",
+  "originHash" : "178e7dc9e6153fefcf23f0975d9bc2b3751f76ac3a69a945df36718006dae722",
   "pins" : [
     {
       "identity" : "swift-collections",
@@ -15,8 +15,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/SimplyDanny/SwiftLintPlugins",
       "state" : {
-        "revision" : "7a3d77f3dd9f91d5cea138e52c20cfceabf352de",
-        "version" : "0.58.2"
+        "revision" : "8545ddf4de043e6f2051c5cf204f39ef778ebf6b",
+        "version" : "0.59.1"
       }
     }
   ],
