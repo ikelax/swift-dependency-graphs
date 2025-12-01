@@ -13,7 +13,7 @@ jobs:
     name: swift-format
     runs-on: macOS-14
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
       - name: Xcode Select Version
         uses: mobiledevops/xcode-select-version-action@v1
         with:
@@ -24,7 +24,7 @@ jobs:
     name: SwiftLint
     runs-on: macOS-14
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
       - name: Xcode Select Version
         uses: mobiledevops/xcode-select-version-action@v1
         with:
