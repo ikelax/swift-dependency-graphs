@@ -13,7 +13,7 @@ jobs:
     name: Test on macOS 14
     runs-on: macOS-14
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
       - name: Xcode Select Version
         uses: mobiledevops/xcode-select-version-action@v1
         with:
@@ -24,7 +24,7 @@ jobs:
     name: Test on Ubuntu 24.04
     runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
       - name: Test
         run: |
           eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
@@ -39,7 +39,7 @@ jobs:
   #       with:
   #         branch: swift-6.0-release
   #         tag: 6.0-RELEASE
-  #     - uses: actions/checkout@v5
+  #     - uses: actions/checkout@v6
   #     - name: Test
   #       run: |
   #         Set-StrictMode -Version Latest
